@@ -1,0 +1,168 @@
+{
+  "version": "36.0.0",
+  "artifacts": {
+    "shmul-my-sst-app-ExampleStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "shmul-my-sst-app-ExampleStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "shmul-my-sst-app-ExampleStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://139004743199/us-east-1",
+      "properties": {
+        "templateFile": "shmul-my-sst-app-ExampleStack.template.json",
+        "terminationProtection": false,
+        "tags": {
+          "sst:app": "my-sst-app",
+          "sst:stage": "shmul"
+        },
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::139004743199:role/cdk-hnb659fds-deploy-role-139004743199-us-east-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::139004743199:role/cdk-hnb659fds-cfn-exec-role-139004743199-us-east-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-139004743199-us-east-1/c4cb4cb15b90d87536bb28d2040fb99c447b636d0cff346bfa68ab35672bfb4d.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "shmul-my-sst-app-ExampleStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::139004743199:role/cdk-hnb659fds-lookup-role-139004743199-us-east-1",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "shmul-my-sst-app-ExampleStack.assets"
+      ],
+      "metadata": {
+        "/shmul-my-sst-app-ExampleStack": [
+          {
+            "type": "aws:cdk:stack-tags",
+            "data": [
+              {
+                "Key": "sst:app",
+                "Value": "my-sst-app"
+              },
+              {
+                "Key": "sst:stage",
+                "Value": "shmul"
+              }
+            ]
+          }
+        ],
+        "/shmul-my-sst-app-ExampleStack/CustomResourceHandler/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomResourceHandlerServiceRole41AEC181"
+          }
+        ],
+        "/shmul-my-sst-app-ExampleStack/CustomResourceHandler/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomResourceHandlerE8FB56BA"
+          }
+        ],
+        "/shmul-my-sst-app-ExampleStack/Api/Api/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiCD79AAA0"
+          }
+        ],
+        "/shmul-my-sst-app-ExampleStack/Api/Api/DefaultStage/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiDefaultStage1AAE989B"
+          }
+        ],
+        "/shmul-my-sst-app-ExampleStack/Api/LogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiLogGroup1717FE17"
+          }
+        ],
+        "/shmul-my-sst-app-ExampleStack/Api/Lambda_GET_--post/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiLambdaGETpostServiceRoleFFC755F1"
+          }
+        ],
+        "/shmul-my-sst-app-ExampleStack/Api/Lambda_GET_--post/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiLambdaGETpostServiceRoleDefaultPolicyBC64449A"
+          }
+        ],
+        "/shmul-my-sst-app-ExampleStack/Api/Lambda_GET_--post/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiLambdaGETpostFABCAEBF"
+          }
+        ],
+        "/shmul-my-sst-app-ExampleStack/Api/Lambda_GET_--post/EventInvokeConfig/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiLambdaGETpostEventInvokeConfigDB562E8B"
+          }
+        ],
+        "/shmul-my-sst-app-ExampleStack/Api/Route_GET_--post/Integration_GET_--post/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiRouteGETpostIntegrationGETpost05CA4F67"
+          }
+        ],
+        "/shmul-my-sst-app-ExampleStack/Api/Route_GET_--post/Integration_GET_--post-Permission": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiRouteGETpostIntegrationGETpostPermission77875BE8"
+          }
+        ],
+        "/shmul-my-sst-app-ExampleStack/Api/Route_GET_--post/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiRouteGETpost68871BD2"
+          }
+        ],
+        "/shmul-my-sst-app-ExampleStack/Api/Parameter_url/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiParameterurl09B86AB9"
+          }
+        ],
+        "/shmul-my-sst-app-ExampleStack/SSTStackOutputapi": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "api"
+          }
+        ],
+        "/shmul-my-sst-app-ExampleStack/SSTStackOutputSSTMetadata": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SSTMetadata"
+          }
+        ],
+        "/shmul-my-sst-app-ExampleStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/shmul-my-sst-app-ExampleStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "shmul-my-sst-app-ExampleStack"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    }
+  }
+}
