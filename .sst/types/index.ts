@@ -15,3 +15,21 @@ declare module "sst/node/api" {
   }
 }
 
+import "sst/node/site";
+declare module "sst/node/site" {
+  export interface SvelteKitSiteResources {
+    "Site": {
+      url: string;
+    }
+  }
+}
+
+import "sst/node/api";
+declare module "sst/node/api" {
+  export interface ApiResources {
+    "PrismaApi": {
+      url: string;
+    }
+  }
+}
+

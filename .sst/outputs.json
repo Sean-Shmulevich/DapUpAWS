@@ -1,5 +1,6 @@
 {
-  "shmul-my-sst-app-ExampleStack": {
-    "api": "https://msrrbhe5u3.execute-api.us-east-1.amazonaws.com"
-  }
+  "shmul-app-ExampleStack": {
+    "api": "https://fgb1l4aue2.execute-api.us-east-1.amazonaws.com"
+  },
+  "shmul-app-Site": {}
 }

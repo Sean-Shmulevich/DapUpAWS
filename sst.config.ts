@@ -1,19 +1,17 @@
-import type { SSTConfig } from "sst";
-import { SvelteKitSite } from "sst/constructs";
+import type { SSTConfig } from 'sst';
+import { SvelteKitSite } from 'sst/constructs';
+import { CognitoStack } from './stacks/Cognito';
+import { PrismaStack } from './stacks/PrismaStack';
 
 export default {
-  config(_input) {
-    return {
-      name: "@@app",
-      region: "us-east-1",
-    };
-  },
-  stacks(app) {
-    app.stack(function Site({ stack }) {
-      const site = new SvelteKitSite(stack, "site");
-      stack.addOutputs({
-        url: site.url,
-      });
-    });
-  },
+	config(_input) {
+		return {
+			name: 'app',
+			region: 'us-east-1'
+		};
+	},
+	stacks(app) {
+		app.stack(CognitoStack);
+		app.stack(PrismaStack);
+	}
 } satisfies SSTConfig;
