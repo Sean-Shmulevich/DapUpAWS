@@ -4,1900 +4,6 @@
     "id": "App",
     "path": "",
     "children": {
-      "shmul-app-CognitoStack": {
-        "id": "shmul-app-CognitoStack",
-        "path": "shmul-app-CognitoStack",
-        "children": {
-          "CustomResourceHandler": {
-            "id": "CustomResourceHandler",
-            "path": "shmul-app-CognitoStack/CustomResourceHandler",
-            "children": {
-              "ServiceRole": {
-                "id": "ServiceRole",
-                "path": "shmul-app-CognitoStack/CustomResourceHandler/ServiceRole",
-                "children": {
-                  "ImportServiceRole": {
-                    "id": "ImportServiceRole",
-                    "path": "shmul-app-CognitoStack/CustomResourceHandler/ServiceRole/ImportServiceRole",
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.Resource",
-                      "version": "2.124.0"
-                    }
-                  },
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "shmul-app-CognitoStack/CustomResourceHandler/ServiceRole/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
-                      "aws:cdk:cloudformation:props": {
-                        "assumeRolePolicyDocument": {
-                          "Statement": [
-                            {
-                              "Action": "sts:AssumeRole",
-                              "Effect": "Allow",
-                              "Principal": {
-                                "Service": "lambda.amazonaws.com"
-                              }
-                            }
-                          ],
-                          "Version": "2012-10-17"
-                        },
-                        "managedPolicyArns": [
-                          {
-                            "Fn::Join": [
-                              "",
-                              [
-                                "arn:",
-                                {
-                                  "Ref": "AWS::Partition"
-                                },
-                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-                              ]
-                            ]
-                          }
-                        ],
-                        "tags": [
-                          {
-                            "key": "sst:app",
-                            "value": "app"
-                          },
-                          {
-                            "key": "sst:stage",
-                            "value": "shmul"
-                          }
-                        ]
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
-                      "version": "2.124.0"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_iam.Role",
-                  "version": "2.124.0"
-                }
-              },
-              "Code": {
-                "id": "Code",
-                "path": "shmul-app-CognitoStack/CustomResourceHandler/Code",
-                "children": {
-                  "Stage": {
-                    "id": "Stage",
-                    "path": "shmul-app-CognitoStack/CustomResourceHandler/Code/Stage",
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.AssetStaging",
-                      "version": "2.124.0"
-                    }
-                  },
-                  "AssetBucket": {
-                    "id": "AssetBucket",
-                    "path": "shmul-app-CognitoStack/CustomResourceHandler/Code/AssetBucket",
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_s3.BucketBase",
-                      "version": "2.124.0"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
-                  "version": "2.124.0"
-                }
-              },
-              "Resource": {
-                "id": "Resource",
-                "path": "shmul-app-CognitoStack/CustomResourceHandler/Resource",
-                "attributes": {
-                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
-                  "aws:cdk:cloudformation:props": {
-                    "code": {
-                      "s3Bucket": "cdk-hnb659fds-assets-139004743199-us-east-1",
-                      "s3Key": "a774bc29de62a6242444d57c5a414f8c738a982a97009c36fd8d466d84503a09.zip"
-                    },
-                    "handler": "index.handler",
-                    "memorySize": 1024,
-                    "role": {
-                      "Fn::GetAtt": [
-                        "CustomResourceHandlerServiceRole41AEC181",
-                        "Arn"
-                      ]
-                    },
-                    "runtime": "nodejs18.x",
-                    "tags": [
-                      {
-                        "key": "sst:app",
-                        "value": "app"
-                      },
-                      {
-                        "key": "sst:stage",
-                        "value": "shmul"
-                      }
-                    ],
-                    "timeout": 900
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
-                  "version": "2.124.0"
-                }
-              }
-            },
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_lambda.Function",
-              "version": "2.124.0"
-            }
-          },
-          "Auth": {
-            "id": "Auth",
-            "path": "shmul-app-CognitoStack/Auth",
-            "children": {
-              "UserPool": {
-                "id": "UserPool",
-                "path": "shmul-app-CognitoStack/Auth/UserPool",
-                "children": {
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "shmul-app-CognitoStack/Auth/UserPool/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::Cognito::UserPool",
-                      "aws:cdk:cloudformation:props": {
-                        "accountRecoverySetting": {
-                          "recoveryMechanisms": [
-                            {
-                              "name": "verified_phone_number",
-                              "priority": 1
-                            },
-                            {
-                              "name": "verified_email",
-                              "priority": 2
-                            }
-                          ]
-                        },
-                        "adminCreateUserConfig": {
-                          "allowAdminCreateUserOnly": false
-                        },
-                        "autoVerifiedAttributes": [
-                          "email"
-                        ],
-                        "emailVerificationMessage": "The verification code to your new account is {####}",
-                        "emailVerificationSubject": "Verify your new account",
-                        "smsVerificationMessage": "The verification code to your new account is {####}",
-                        "userPoolTags": {
-                          "sst:app": "app",
-                          "sst:stage": "shmul"
-                        },
-                        "usernameAttributes": [
-                          "email"
-                        ],
-                        "usernameConfiguration": {
-                          "caseSensitive": false
-                        },
-                        "userPoolName": "shmul-app-Auth",
-                        "verificationMessageTemplate": {
-                          "defaultEmailOption": "CONFIRM_WITH_CODE",
-                          "emailMessage": "The verification code to your new account is {####}",
-                          "emailSubject": "Verify your new account",
-                          "smsMessage": "The verification code to your new account is {####}"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_cognito.CfnUserPool",
-                      "version": "2.124.0"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_cognito.UserPool",
-                  "version": "2.124.0"
-                }
-              },
-              "UserPoolClient": {
-                "id": "UserPoolClient",
-                "path": "shmul-app-CognitoStack/Auth/UserPoolClient",
-                "children": {
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "shmul-app-CognitoStack/Auth/UserPoolClient/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::Cognito::UserPoolClient",
-                      "aws:cdk:cloudformation:props": {
-                        "allowedOAuthFlows": [
-                          "implicit",
-                          "code"
-                        ],
-                        "allowedOAuthFlowsUserPoolClient": true,
-                        "allowedOAuthScopes": [
-                          "profile",
-                          "phone",
-                          "email",
-                          "openid",
-                          "aws.cognito.signin.user.admin"
-                        ],
-                        "callbackUrLs": [
-                          "https://example.com"
-                        ],
-                        "supportedIdentityProviders": [
-                          "COGNITO"
-                        ],
-                        "userPoolId": {
-                          "Ref": "AuthUserPool8115E87F"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_cognito.CfnUserPoolClient",
-                      "version": "2.124.0"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_cognito.UserPoolClient",
-                  "version": "2.124.0"
-                }
-              },
-              "IdentityPool": {
-                "id": "IdentityPool",
-                "path": "shmul-app-CognitoStack/Auth/IdentityPool",
-                "attributes": {
-                  "aws:cdk:cloudformation:type": "AWS::Cognito::IdentityPool",
-                  "aws:cdk:cloudformation:props": {
-                    "allowUnauthenticatedIdentities": true,
-                    "cognitoIdentityProviders": [
-                      {
-                        "providerName": {
-                          "Fn::Join": [
-                            "",
-                            [
-                              "cognito-idp.us-east-1.",
-                              {
-                                "Ref": "AWS::URLSuffix"
-                              },
-                              "/",
-                              {
-                                "Ref": "AuthUserPool8115E87F"
-                              }
-                            ]
-                          ]
-                        },
-                        "clientId": {
-                          "Ref": "AuthUserPoolClient0AA456E4"
-                        }
-                      }
-                    ],
-                    "identityPoolName": "shmul-app-Auth",
-                    "openIdConnectProviderArns": [],
-                    "supportedLoginProviders": {}
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_cognito.CfnIdentityPool",
-                  "version": "2.124.0"
-                }
-              },
-              "IdentityPoolAuthRole": {
-                "id": "IdentityPoolAuthRole",
-                "path": "shmul-app-CognitoStack/Auth/IdentityPoolAuthRole",
-                "children": {
-                  "ImportIdentityPoolAuthRole": {
-                    "id": "ImportIdentityPoolAuthRole",
-                    "path": "shmul-app-CognitoStack/Auth/IdentityPoolAuthRole/ImportIdentityPoolAuthRole",
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.Resource",
-                      "version": "2.124.0"
-                    }
-                  },
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "shmul-app-CognitoStack/Auth/IdentityPoolAuthRole/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
-                      "aws:cdk:cloudformation:props": {
-                        "assumeRolePolicyDocument": {
-                          "Statement": [
-                            {
-                              "Action": "sts:AssumeRoleWithWebIdentity",
-                              "Condition": {
-                                "StringEquals": {
-                                  "cognito-identity.amazonaws.com:aud": {
-                                    "Ref": "AuthIdentityPool12DFB5E1"
-                                  }
-                                },
-                                "ForAnyValue:StringLike": {
-                                  "cognito-identity.amazonaws.com:amr": "authenticated"
-                                }
-                              },
-                              "Effect": "Allow",
-                              "Principal": {
-                                "Federated": "cognito-identity.amazonaws.com"
-                              }
-                            }
-                          ],
-                          "Version": "2012-10-17"
-                        },
-                        "tags": [
-                          {
-                            "key": "sst:app",
-                            "value": "app"
-                          },
-                          {
-                            "key": "sst:stage",
-                            "value": "shmul"
-                          }
-                        ]
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
-                      "version": "2.124.0"
-                    }
-                  },
-                  "DefaultPolicy": {
-                    "id": "DefaultPolicy",
-                    "path": "shmul-app-CognitoStack/Auth/IdentityPoolAuthRole/DefaultPolicy",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "shmul-app-CognitoStack/Auth/IdentityPoolAuthRole/DefaultPolicy/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
-                          "aws:cdk:cloudformation:props": {
-                            "policyDocument": {
-                              "Statement": [
-                                {
-                                  "Action": [
-                                    "mobileanalytics:PutEvents",
-                                    "cognito-sync:*",
-                                    "cognito-identity:*"
-                                  ],
-                                  "Effect": "Allow",
-                                  "Resource": "*"
-                                },
-                                {
-                                  "Action": "execute-api:Invoke",
-                                  "Effect": "Allow",
-                                  "Resource": {
-                                    "Fn::Join": [
-                                      "",
-                                      [
-                                        "arn:",
-                                        {
-                                          "Ref": "AWS::Partition"
-                                        },
-                                        ":execute-api:us-east-1:139004743199:",
-                                        {
-                                          "Ref": "ApiCD79AAA0"
-                                        },
-                                        "/*"
-                                      ]
-                                    ]
-                                  }
-                                }
-                              ],
-                              "Version": "2012-10-17"
-                            },
-                            "policyName": "AuthIdentityPoolAuthRoleDefaultPolicy32D17CAC",
-                            "roles": [
-                              {
-                                "Ref": "AuthIdentityPoolAuthRoleD14DA003"
-                              }
-                            ]
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
-                          "version": "2.124.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_iam.Policy",
-                      "version": "2.124.0"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_iam.Role",
-                  "version": "2.124.0"
-                }
-              },
-              "IdentityPoolUnauthRole": {
-                "id": "IdentityPoolUnauthRole",
-                "path": "shmul-app-CognitoStack/Auth/IdentityPoolUnauthRole",
-                "children": {
-                  "ImportIdentityPoolUnauthRole": {
-                    "id": "ImportIdentityPoolUnauthRole",
-                    "path": "shmul-app-CognitoStack/Auth/IdentityPoolUnauthRole/ImportIdentityPoolUnauthRole",
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.Resource",
-                      "version": "2.124.0"
-                    }
-                  },
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "shmul-app-CognitoStack/Auth/IdentityPoolUnauthRole/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
-                      "aws:cdk:cloudformation:props": {
-                        "assumeRolePolicyDocument": {
-                          "Statement": [
-                            {
-                              "Action": "sts:AssumeRoleWithWebIdentity",
-                              "Condition": {
-                                "StringEquals": {
-                                  "cognito-identity.amazonaws.com:aud": {
-                                    "Ref": "AuthIdentityPool12DFB5E1"
-                                  }
-                                },
-                                "ForAnyValue:StringLike": {
-                                  "cognito-identity.amazonaws.com:amr": "unauthenticated"
-                                }
-                              },
-                              "Effect": "Allow",
-                              "Principal": {
-                                "Federated": "cognito-identity.amazonaws.com"
-                              }
-                            }
-                          ],
-                          "Version": "2012-10-17"
-                        },
-                        "tags": [
-                          {
-                            "key": "sst:app",
-                            "value": "app"
-                          },
-                          {
-                            "key": "sst:stage",
-                            "value": "shmul"
-                          }
-                        ]
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
-                      "version": "2.124.0"
-                    }
-                  },
-                  "DefaultPolicy": {
-                    "id": "DefaultPolicy",
-                    "path": "shmul-app-CognitoStack/Auth/IdentityPoolUnauthRole/DefaultPolicy",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "shmul-app-CognitoStack/Auth/IdentityPoolUnauthRole/DefaultPolicy/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
-                          "aws:cdk:cloudformation:props": {
-                            "policyDocument": {
-                              "Statement": [
-                                {
-                                  "Action": [
-                                    "mobileanalytics:PutEvents",
-                                    "cognito-sync:*"
-                                  ],
-                                  "Effect": "Allow",
-                                  "Resource": "*"
-                                }
-                              ],
-                              "Version": "2012-10-17"
-                            },
-                            "policyName": "AuthIdentityPoolUnauthRoleDefaultPolicy0417F857",
-                            "roles": [
-                              {
-                                "Ref": "AuthIdentityPoolUnauthRoleA8DE48F3"
-                              }
-                            ]
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
-                          "version": "2.124.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_iam.Policy",
-                      "version": "2.124.0"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_iam.Role",
-                  "version": "2.124.0"
-                }
-              },
-              "IdentityPoolRoleAttachment": {
-                "id": "IdentityPoolRoleAttachment",
-                "path": "shmul-app-CognitoStack/Auth/IdentityPoolRoleAttachment",
-                "attributes": {
-                  "aws:cdk:cloudformation:type": "AWS::Cognito::IdentityPoolRoleAttachment",
-                  "aws:cdk:cloudformation:props": {
-                    "identityPoolId": {
-                      "Ref": "AuthIdentityPool12DFB5E1"
-                    },
-                    "roles": {
-                      "authenticated": {
-                        "Fn::GetAtt": [
-                          "AuthIdentityPoolAuthRoleD14DA003",
-                          "Arn"
-                        ]
-                      },
-                      "unauthenticated": {
-                        "Fn::GetAtt": [
-                          "AuthIdentityPoolUnauthRoleA8DE48F3",
-                          "Arn"
-                        ]
-                      }
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_cognito.CfnIdentityPoolRoleAttachment",
-                  "version": "2.124.0"
-                }
-              }
-            },
-            "constructInfo": {
-              "fqn": "constructs.Construct",
-              "version": "10.3.0"
-            }
-          },
-          "Api": {
-            "id": "Api",
-            "path": "shmul-app-CognitoStack/Api",
-            "children": {
-              "Api": {
-                "id": "Api",
-                "path": "shmul-app-CognitoStack/Api/Api",
-                "children": {
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "shmul-app-CognitoStack/Api/Api/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::ApiGatewayV2::Api",
-                      "aws:cdk:cloudformation:props": {
-                        "corsConfiguration": {
-                          "allowCredentials": false,
-                          "allowHeaders": [
-                            "*"
-                          ],
-                          "allowMethods": [
-                            "*"
-                          ],
-                          "allowOrigins": [
-                            "*"
-                          ]
-                        },
-                        "name": "shmul-app-Api",
-                        "protocolType": "HTTP",
-                        "tags": {
-                          "sst:app": "app",
-                          "sst:stage": "shmul"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_apigatewayv2.CfnApi",
-                      "version": "2.124.0"
-                    }
-                  },
-                  "DefaultStage": {
-                    "id": "DefaultStage",
-                    "path": "shmul-app-CognitoStack/Api/Api/DefaultStage",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "shmul-app-CognitoStack/Api/Api/DefaultStage/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::ApiGatewayV2::Stage",
-                          "aws:cdk:cloudformation:props": {
-                            "accessLogSettings": {
-                              "format": "{\"requestTime\":\"$context.requestTime\",\"requestId\":\"$context.requestId\",\"httpMethod\":\"$context.httpMethod\",\"path\":\"$context.path\",\"routeKey\":\"$context.routeKey\",\"status\":$context.status,\"responseLatency\":$context.responseLatency,\"integrationRequestId\":\"$context.integration.requestId\",\"integrationStatus\":\"$context.integration.status\",\"integrationLatency\":\"$context.integration.latency\",\"integrationServiceStatus\":\"$context.integration.integrationStatus\",\"ip\":\"$context.identity.sourceIp\",\"userAgent\":\"$context.identity.userAgent\"}",
-                              "destinationArn": {
-                                "Fn::GetAtt": [
-                                  "ApiLogGroup1717FE17",
-                                  "Arn"
-                                ]
-                              }
-                            },
-                            "apiId": {
-                              "Ref": "ApiCD79AAA0"
-                            },
-                            "autoDeploy": true,
-                            "stageName": "$default",
-                            "tags": {
-                              "sst:app": "app",
-                              "sst:stage": "shmul"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_apigatewayv2.CfnStage",
-                          "version": "2.124.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_apigatewayv2.HttpStage",
-                      "version": "2.124.0"
-                    }
-                  },
-                  "jwt": {
-                    "id": "jwt",
-                    "path": "shmul-app-CognitoStack/Api/Api/jwt",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "shmul-app-CognitoStack/Api/Api/jwt/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::ApiGatewayV2::Authorizer",
-                          "aws:cdk:cloudformation:props": {
-                            "apiId": {
-                              "Ref": "ApiCD79AAA0"
-                            },
-                            "authorizerType": "JWT",
-                            "identitySource": [
-                              "$request.header.Authorization"
-                            ],
-                            "jwtConfiguration": {
-                              "audience": [
-                                {
-                                  "Ref": "AuthUserPoolClient0AA456E4"
-                                }
-                              ],
-                              "issuer": {
-                                "Fn::Join": [
-                                  "",
-                                  [
-                                    "https://cognito-idp.us-east-1.amazonaws.com/",
-                                    {
-                                      "Ref": "AuthUserPool8115E87F"
-                                    }
-                                  ]
-                                ]
-                              }
-                            },
-                            "name": "jwt"
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_apigatewayv2.CfnAuthorizer",
-                          "version": "2.124.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_apigatewayv2.HttpAuthorizer",
-                      "version": "2.124.0"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_apigatewayv2.HttpApi",
-                  "version": "2.124.0"
-                }
-              },
-              "LogGroup": {
-                "id": "LogGroup",
-                "path": "shmul-app-CognitoStack/Api/LogGroup",
-                "children": {
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "shmul-app-CognitoStack/Api/LogGroup/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::Logs::LogGroup",
-                      "aws:cdk:cloudformation:props": {
-                        "logGroupName": {
-                          "Fn::Join": [
-                            "",
-                            [
-                              "/aws/vendedlogs/apis/shmul-app-Api-",
-                              {
-                                "Ref": "ApiCD79AAA0"
-                              },
-                              "/default"
-                            ]
-                          ]
-                        },
-                        "tags": [
-                          {
-                            "key": "sst:app",
-                            "value": "app"
-                          },
-                          {
-                            "key": "sst:stage",
-                            "value": "shmul"
-                          }
-                        ]
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_logs.CfnLogGroup",
-                      "version": "2.124.0"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_logs.LogGroup",
-                  "version": "2.124.0"
-                }
-              },
-              "Api-Api-Authorizer-jwt-UserPool": {
-                "id": "Api-Api-Authorizer-jwt-UserPool",
-                "path": "shmul-app-CognitoStack/Api/Api-Api-Authorizer-jwt-UserPool",
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.Resource",
-                  "version": "2.124.0"
-                }
-              },
-              "Api-Api-Authorizer-jwt-UserPoolClient-0": {
-                "id": "Api-Api-Authorizer-jwt-UserPoolClient-0",
-                "path": "shmul-app-CognitoStack/Api/Api-Api-Authorizer-jwt-UserPoolClient-0",
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.Resource",
-                  "version": "2.124.0"
-                }
-              },
-              "Lambda_GET_--private": {
-                "id": "Lambda_GET_--private",
-                "path": "shmul-app-CognitoStack/Api/Lambda_GET_--private",
-                "children": {
-                  "ServiceRole": {
-                    "id": "ServiceRole",
-                    "path": "shmul-app-CognitoStack/Api/Lambda_GET_--private/ServiceRole",
-                    "children": {
-                      "ImportServiceRole": {
-                        "id": "ImportServiceRole",
-                        "path": "shmul-app-CognitoStack/Api/Lambda_GET_--private/ServiceRole/ImportServiceRole",
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.Resource",
-                          "version": "2.124.0"
-                        }
-                      },
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "shmul-app-CognitoStack/Api/Lambda_GET_--private/ServiceRole/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
-                          "aws:cdk:cloudformation:props": {
-                            "assumeRolePolicyDocument": {
-                              "Statement": [
-                                {
-                                  "Action": "sts:AssumeRole",
-                                  "Effect": "Allow",
-                                  "Principal": {
-                                    "Service": "lambda.amazonaws.com"
-                                  }
-                                }
-                              ],
-                              "Version": "2012-10-17"
-                            },
-                            "managedPolicyArns": [
-                              {
-                                "Fn::Join": [
-                                  "",
-                                  [
-                                    "arn:",
-                                    {
-                                      "Ref": "AWS::Partition"
-                                    },
-                                    ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-                                  ]
-                                ]
-                              }
-                            ],
-                            "tags": [
-                              {
-                                "key": "sst:app",
-                                "value": "app"
-                              },
-                              {
-                                "key": "sst:stage",
-                                "value": "shmul"
-                              }
-                            ]
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_iam.CfnRole",
-                          "version": "2.124.0"
-                        }
-                      },
-                      "DefaultPolicy": {
-                        "id": "DefaultPolicy",
-                        "path": "shmul-app-CognitoStack/Api/Lambda_GET_--private/ServiceRole/DefaultPolicy",
-                        "children": {
-                          "Resource": {
-                            "id": "Resource",
-                            "path": "shmul-app-CognitoStack/Api/Lambda_GET_--private/ServiceRole/DefaultPolicy/Resource",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
-                              "aws:cdk:cloudformation:props": {
-                                "policyDocument": {
-                                  "Statement": [
-                                    {
-                                      "Action": [
-                                        "xray:PutTraceSegments",
-                                        "xray:PutTelemetryRecords"
-                                      ],
-                                      "Effect": "Allow",
-                                      "Resource": "*"
-                                    }
-                                  ],
-                                  "Version": "2012-10-17"
-                                },
-                                "policyName": "ApiLambdaGETprivateServiceRoleDefaultPolicy926B935A",
-                                "roles": [
-                                  {
-                                    "Ref": "ApiLambdaGETprivateServiceRole12DB705C"
-                                  }
-                                ]
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
-                              "version": "2.124.0"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_iam.Policy",
-                          "version": "2.124.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_iam.Role",
-                      "version": "2.124.0"
-                    }
-                  },
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "shmul-app-CognitoStack/Api/Lambda_GET_--private/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
-                      "aws:cdk:cloudformation:props": {
-                        "architectures": [
-                          "x86_64"
-                        ],
-                        "code": {
-                          "zipFile": "export function placeholder() {}"
-                        },
-                        "environment": {
-                          "variables": {
-                            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                            "SST_APP": "app",
-                            "SST_STAGE": "shmul",
-                            "SST_SSM_PREFIX": "/sst/app/shmul/"
-                          }
-                        },
-                        "ephemeralStorage": {
-                          "size": 512
-                        },
-                        "handler": "index.placeholder",
-                        "memorySize": 1024,
-                        "role": {
-                          "Fn::GetAtt": [
-                            "ApiLambdaGETprivateServiceRole12DB705C",
-                            "Arn"
-                          ]
-                        },
-                        "runtime": "nodejs18.x",
-                        "tags": [
-                          {
-                            "key": "sst:app",
-                            "value": "app"
-                          },
-                          {
-                            "key": "sst:stage",
-                            "value": "shmul"
-                          }
-                        ],
-                        "timeout": 10,
-                        "tracingConfig": {
-                          "mode": "Active"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
-                      "version": "2.124.0"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_lambda.Function",
-                  "version": "2.124.0"
-                }
-              },
-              "Route_GET_--private": {
-                "id": "Route_GET_--private",
-                "path": "shmul-app-CognitoStack/Api/Route_GET_--private",
-                "children": {
-                  "Integration_GET_--private": {
-                    "id": "Integration_GET_--private",
-                    "path": "shmul-app-CognitoStack/Api/Route_GET_--private/Integration_GET_--private",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "shmul-app-CognitoStack/Api/Route_GET_--private/Integration_GET_--private/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::ApiGatewayV2::Integration",
-                          "aws:cdk:cloudformation:props": {
-                            "apiId": {
-                              "Ref": "ApiCD79AAA0"
-                            },
-                            "integrationType": "AWS_PROXY",
-                            "integrationUri": {
-                              "Fn::GetAtt": [
-                                "ApiLambdaGETprivate01176F88",
-                                "Arn"
-                              ]
-                            },
-                            "payloadFormatVersion": "2.0"
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_apigatewayv2.CfnIntegration",
-                          "version": "2.124.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_apigatewayv2.HttpIntegration",
-                      "version": "2.124.0"
-                    }
-                  },
-                  "Integration_GET_--private-Permission": {
-                    "id": "Integration_GET_--private-Permission",
-                    "path": "shmul-app-CognitoStack/Api/Route_GET_--private/Integration_GET_--private-Permission",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
-                      "aws:cdk:cloudformation:props": {
-                        "action": "lambda:InvokeFunction",
-                        "functionName": {
-                          "Fn::GetAtt": [
-                            "ApiLambdaGETprivate01176F88",
-                            "Arn"
-                          ]
-                        },
-                        "principal": "apigateway.amazonaws.com",
-                        "sourceArn": {
-                          "Fn::Join": [
-                            "",
-                            [
-                              "arn:",
-                              {
-                                "Ref": "AWS::Partition"
-                              },
-                              ":execute-api:us-east-1:139004743199:",
-                              {
-                                "Ref": "ApiCD79AAA0"
-                              },
-                              "/*/*/private"
-                            ]
-                          ]
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
-                      "version": "2.124.0"
-                    }
-                  },
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "shmul-app-CognitoStack/Api/Route_GET_--private/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::ApiGatewayV2::Route",
-                      "aws:cdk:cloudformation:props": {
-                        "apiId": {
-                          "Ref": "ApiCD79AAA0"
-                        },
-                        "authorizationType": "JWT",
-                        "authorizerId": {
-                          "Ref": "ApijwtBEABF1DF"
-                        },
-                        "routeKey": "GET /private",
-                        "target": {
-                          "Fn::Join": [
-                            "",
-                            [
-                              "integrations/",
-                              {
-                                "Ref": "ApiRouteGETprivateIntegrationGETprivate0815C686"
-                              }
-                            ]
-                          ]
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_apigatewayv2.CfnRoute",
-                      "version": "2.124.0"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_apigatewayv2.HttpRoute",
-                  "version": "2.124.0"
-                }
-              },
-              "Lambda_GET_--public": {
-                "id": "Lambda_GET_--public",
-                "path": "shmul-app-CognitoStack/Api/Lambda_GET_--public",
-                "children": {
-                  "ServiceRole": {
-                    "id": "ServiceRole",
-                    "path": "shmul-app-CognitoStack/Api/Lambda_GET_--public/ServiceRole",
-                    "children": {
-                      "ImportServiceRole": {
-                        "id": "ImportServiceRole",
-                        "path": "shmul-app-CognitoStack/Api/Lambda_GET_--public/ServiceRole/ImportServiceRole",
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.Resource",
-                          "version": "2.124.0"
-                        }
-                      },
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "shmul-app-CognitoStack/Api/Lambda_GET_--public/ServiceRole/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
-                          "aws:cdk:cloudformation:props": {
-                            "assumeRolePolicyDocument": {
-                              "Statement": [
-                                {
-                                  "Action": "sts:AssumeRole",
-                                  "Effect": "Allow",
-                                  "Principal": {
-                                    "Service": "lambda.amazonaws.com"
-                                  }
-                                }
-                              ],
-                              "Version": "2012-10-17"
-                            },
-                            "managedPolicyArns": [
-                              {
-                                "Fn::Join": [
-                                  "",
-                                  [
-                                    "arn:",
-                                    {
-                                      "Ref": "AWS::Partition"
-                                    },
-                                    ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-                                  ]
-                                ]
-                              }
-                            ],
-                            "tags": [
-                              {
-                                "key": "sst:app",
-                                "value": "app"
-                              },
-                              {
-                                "key": "sst:stage",
-                                "value": "shmul"
-                              }
-                            ]
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_iam.CfnRole",
-                          "version": "2.124.0"
-                        }
-                      },
-                      "DefaultPolicy": {
-                        "id": "DefaultPolicy",
-                        "path": "shmul-app-CognitoStack/Api/Lambda_GET_--public/ServiceRole/DefaultPolicy",
-                        "children": {
-                          "Resource": {
-                            "id": "Resource",
-                            "path": "shmul-app-CognitoStack/Api/Lambda_GET_--public/ServiceRole/DefaultPolicy/Resource",
-                            "attributes": {
-                              "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
-                              "aws:cdk:cloudformation:props": {
-                                "policyDocument": {
-                                  "Statement": [
-                                    {
-                                      "Action": [
-                                        "xray:PutTraceSegments",
-                                        "xray:PutTelemetryRecords"
-                                      ],
-                                      "Effect": "Allow",
-                                      "Resource": "*"
-                                    }
-                                  ],
-                                  "Version": "2012-10-17"
-                                },
-                                "policyName": "ApiLambdaGETpublicServiceRoleDefaultPolicy98D67C04",
-                                "roles": [
-                                  {
-                                    "Ref": "ApiLambdaGETpublicServiceRole8DF00660"
-                                  }
-                                ]
-                              }
-                            },
-                            "constructInfo": {
-                              "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
-                              "version": "2.124.0"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_iam.Policy",
-                          "version": "2.124.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_iam.Role",
-                      "version": "2.124.0"
-                    }
-                  },
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "shmul-app-CognitoStack/Api/Lambda_GET_--public/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
-                      "aws:cdk:cloudformation:props": {
-                        "architectures": [
-                          "x86_64"
-                        ],
-                        "code": {
-                          "zipFile": "export function placeholder() {}"
-                        },
-                        "environment": {
-                          "variables": {
-                            "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1",
-                            "SST_APP": "app",
-                            "SST_STAGE": "shmul",
-                            "SST_SSM_PREFIX": "/sst/app/shmul/"
-                          }
-                        },
-                        "ephemeralStorage": {
-                          "size": 512
-                        },
-                        "handler": "index.placeholder",
-                        "memorySize": 1024,
-                        "role": {
-                          "Fn::GetAtt": [
-                            "ApiLambdaGETpublicServiceRole8DF00660",
-                            "Arn"
-                          ]
-                        },
-                        "runtime": "nodejs18.x",
-                        "tags": [
-                          {
-                            "key": "sst:app",
-                            "value": "app"
-                          },
-                          {
-                            "key": "sst:stage",
-                            "value": "shmul"
-                          }
-                        ],
-                        "timeout": 10,
-                        "tracingConfig": {
-                          "mode": "Active"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
-                      "version": "2.124.0"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_lambda.Function",
-                  "version": "2.124.0"
-                }
-              },
-              "Route_GET_--public": {
-                "id": "Route_GET_--public",
-                "path": "shmul-app-CognitoStack/Api/Route_GET_--public",
-                "children": {
-                  "Integration_GET_--public": {
-                    "id": "Integration_GET_--public",
-                    "path": "shmul-app-CognitoStack/Api/Route_GET_--public/Integration_GET_--public",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "shmul-app-CognitoStack/Api/Route_GET_--public/Integration_GET_--public/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::ApiGatewayV2::Integration",
-                          "aws:cdk:cloudformation:props": {
-                            "apiId": {
-                              "Ref": "ApiCD79AAA0"
-                            },
-                            "integrationType": "AWS_PROXY",
-                            "integrationUri": {
-                              "Fn::GetAtt": [
-                                "ApiLambdaGETpublic72680C24",
-                                "Arn"
-                              ]
-                            },
-                            "payloadFormatVersion": "2.0"
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_apigatewayv2.CfnIntegration",
-                          "version": "2.124.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_apigatewayv2.HttpIntegration",
-                      "version": "2.124.0"
-                    }
-                  },
-                  "Integration_GET_--public-Permission": {
-                    "id": "Integration_GET_--public-Permission",
-                    "path": "shmul-app-CognitoStack/Api/Route_GET_--public/Integration_GET_--public-Permission",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
-                      "aws:cdk:cloudformation:props": {
-                        "action": "lambda:InvokeFunction",
-                        "functionName": {
-                          "Fn::GetAtt": [
-                            "ApiLambdaGETpublic72680C24",
-                            "Arn"
-                          ]
-                        },
-                        "principal": "apigateway.amazonaws.com",
-                        "sourceArn": {
-                          "Fn::Join": [
-                            "",
-                            [
-                              "arn:",
-                              {
-                                "Ref": "AWS::Partition"
-                              },
-                              ":execute-api:us-east-1:139004743199:",
-                              {
-                                "Ref": "ApiCD79AAA0"
-                              },
-                              "/*/*/public"
-                            ]
-                          ]
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
-                      "version": "2.124.0"
-                    }
-                  },
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "shmul-app-CognitoStack/Api/Route_GET_--public/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::ApiGatewayV2::Route",
-                      "aws:cdk:cloudformation:props": {
-                        "apiId": {
-                          "Ref": "ApiCD79AAA0"
-                        },
-                        "authorizationType": "NONE",
-                        "routeKey": "GET /public",
-                        "target": {
-                          "Fn::Join": [
-                            "",
-                            [
-                              "integrations/",
-                              {
-                                "Ref": "ApiRouteGETpublicIntegrationGETpublicB5E1083B"
-                              }
-                            ]
-                          ]
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_apigatewayv2.CfnRoute",
-                      "version": "2.124.0"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_apigatewayv2.HttpRoute",
-                  "version": "2.124.0"
-                }
-              },
-              "Parameter_url": {
-                "id": "Parameter_url",
-                "path": "shmul-app-CognitoStack/Api/Parameter_url",
-                "children": {
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "shmul-app-CognitoStack/Api/Parameter_url/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::SSM::Parameter",
-                      "aws:cdk:cloudformation:props": {
-                        "name": "/sst/app/shmul/Api/Api/url",
-                        "tags": {
-                          "sst:app": "app",
-                          "sst:stage": "shmul"
-                        },
-                        "type": "String",
-                        "value": {
-                          "Fn::GetAtt": [
-                            "ApiCD79AAA0",
-                            "ApiEndpoint"
-                          ]
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_ssm.CfnParameter",
-                      "version": "2.124.0"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_ssm.StringParameter",
-                  "version": "2.124.0"
-                }
-              }
-            },
-            "constructInfo": {
-              "fqn": "constructs.Construct",
-              "version": "10.3.0"
-            }
-          },
-          "Site": {
-            "id": "Site",
-            "path": "shmul-app-CognitoStack/Site",
-            "children": {
-              "ServerFunctionRole": {
-                "id": "ServerFunctionRole",
-                "path": "shmul-app-CognitoStack/Site/ServerFunctionRole",
-                "children": {
-                  "ImportServerFunctionRole": {
-                    "id": "ImportServerFunctionRole",
-                    "path": "shmul-app-CognitoStack/Site/ServerFunctionRole/ImportServerFunctionRole",
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.Resource",
-                      "version": "2.124.0"
-                    }
-                  },
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "shmul-app-CognitoStack/Site/ServerFunctionRole/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
-                      "aws:cdk:cloudformation:props": {
-                        "assumeRolePolicyDocument": {
-                          "Statement": [
-                            {
-                              "Action": "sts:AssumeRole",
-                              "Effect": "Allow",
-                              "Principal": {
-                                "AWS": {
-                                  "Fn::Join": [
-                                    "",
-                                    [
-                                      "arn:",
-                                      {
-                                        "Ref": "AWS::Partition"
-                                      },
-                                      ":iam::139004743199:root"
-                                    ]
-                                  ]
-                                }
-                              }
-                            },
-                            {
-                              "Action": "sts:AssumeRole",
-                              "Effect": "Allow",
-                              "Principal": {
-                                "Service": "lambda.amazonaws.com"
-                              }
-                            }
-                          ],
-                          "Version": "2012-10-17"
-                        },
-                        "maxSessionDuration": 43200,
-                        "tags": [
-                          {
-                            "key": "sst:app",
-                            "value": "app"
-                          },
-                          {
-                            "key": "sst:stage",
-                            "value": "shmul"
-                          }
-                        ]
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
-                      "version": "2.124.0"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_iam.Role",
-                  "version": "2.124.0"
-                }
-              },
-              "ServerFunction": {
-                "id": "ServerFunction",
-                "path": "shmul-app-CognitoStack/Site/ServerFunction",
-                "children": {
-                  "AssetReplacerPolicy": {
-                    "id": "AssetReplacerPolicy",
-                    "path": "shmul-app-CognitoStack/Site/ServerFunction/AssetReplacerPolicy",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "shmul-app-CognitoStack/Site/ServerFunction/AssetReplacerPolicy/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
-                          "aws:cdk:cloudformation:props": {
-                            "policyDocument": {
-                              "Statement": [
-                                {
-                                  "Action": [
-                                    "s3:GetObject",
-                                    "s3:PutObject"
-                                  ],
-                                  "Effect": "Allow",
-                                  "Resource": {
-                                    "Fn::Join": [
-                                      "",
-                                      [
-                                        "arn:",
-                                        {
-                                          "Ref": "AWS::Partition"
-                                        },
-                                        ":s3:::placeholder/*"
-                                      ]
-                                    ]
-                                  }
-                                }
-                              ],
-                              "Version": "2012-10-17"
-                            },
-                            "policyName": "SiteServerFunctionAssetReplacerPolicy00BAA986",
-                            "roles": [
-                              {
-                                "Ref": "CustomResourceHandlerServiceRole41AEC181"
-                              }
-                            ]
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
-                          "version": "2.124.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_iam.Policy",
-                      "version": "2.124.0"
-                    }
-                  },
-                  "AssetReplacer": {
-                    "id": "AssetReplacer",
-                    "path": "shmul-app-CognitoStack/Site/ServerFunction/AssetReplacer",
-                    "children": {
-                      "Default": {
-                        "id": "Default",
-                        "path": "shmul-app-CognitoStack/Site/ServerFunction/AssetReplacer/Default",
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.CfnResource",
-                          "version": "2.124.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.CustomResource",
-                      "version": "2.124.0"
-                    }
-                  },
-                  "IServerFunctionBucket": {
-                    "id": "IServerFunctionBucket",
-                    "path": "shmul-app-CognitoStack/Site/ServerFunction/IServerFunctionBucket",
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_s3.BucketBase",
-                      "version": "2.124.0"
-                    }
-                  },
-                  "ServerFunction": {
-                    "id": "ServerFunction",
-                    "path": "shmul-app-CognitoStack/Site/ServerFunction/ServerFunction",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "shmul-app-CognitoStack/Site/ServerFunction/ServerFunction/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
-                          "aws:cdk:cloudformation:props": {
-                            "architectures": [
-                              "arm64"
-                            ],
-                            "code": {
-                              "s3Bucket": "cdk-hnb659fds-assets-139004743199-us-east-1",
-                              "s3Key": "b57c044caf9d9112ead30d8e34bb7b41ac572ff0c6879db8c1319bad86855c2f.zip"
-                            },
-                            "description": "Server handler placeholder",
-                            "environment": {
-                              "variables": {
-                                "VITE_APP_API_URL": {
-                                  "Fn::GetAtt": [
-                                    "ApiCD79AAA0",
-                                    "ApiEndpoint"
-                                  ]
-                                },
-                                "VITE_APP_REGION": "us-east-1",
-                                "VITE_APP_USER_POOL_ID": {
-                                  "Ref": "AuthUserPool8115E87F"
-                                },
-                                "VITE_APP_USER_POOL_CLIENT_ID": {
-                                  "Ref": "AuthUserPoolClient0AA456E4"
-                                },
-                                "SST_APP": "app",
-                                "SST_STAGE": "shmul",
-                                "SST_SSM_PREFIX": "/sst/app/shmul/"
-                              }
-                            },
-                            "handler": "index.handler",
-                            "memorySize": 1024,
-                            "role": {
-                              "Fn::GetAtt": [
-                                "SiteServerFunctionRoleED71295F",
-                                "Arn"
-                              ]
-                            },
-                            "runtime": "nodejs18.x",
-                            "tags": [
-                              {
-                                "key": "sst:app",
-                                "value": "app"
-                              },
-                              {
-                                "key": "sst:stage",
-                                "value": "shmul"
-                              }
-                            ],
-                            "timeout": 10
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
-                          "version": "2.124.0"
-                        }
-                      },
-                      "LogRetention": {
-                        "id": "LogRetention",
-                        "path": "shmul-app-CognitoStack/Site/ServerFunction/ServerFunction/LogRetention",
-                        "children": {
-                          "Resource": {
-                            "id": "Resource",
-                            "path": "shmul-app-CognitoStack/Site/ServerFunction/ServerFunction/LogRetention/Resource",
-                            "constructInfo": {
-                              "fqn": "aws-cdk-lib.CfnResource",
-                              "version": "2.124.0"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_logs.LogRetention",
-                          "version": "2.124.0"
-                        }
-                      },
-                      "LogGroup": {
-                        "id": "LogGroup",
-                        "path": "shmul-app-CognitoStack/Site/ServerFunction/ServerFunction/LogGroup",
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.Resource",
-                          "version": "2.124.0"
-                        }
-                      },
-                      "Code": {
-                        "id": "Code",
-                        "path": "shmul-app-CognitoStack/Site/ServerFunction/ServerFunction/Code",
-                        "children": {
-                          "Stage": {
-                            "id": "Stage",
-                            "path": "shmul-app-CognitoStack/Site/ServerFunction/ServerFunction/Code/Stage",
-                            "constructInfo": {
-                              "fqn": "aws-cdk-lib.AssetStaging",
-                              "version": "2.124.0"
-                            }
-                          },
-                          "AssetBucket": {
-                            "id": "AssetBucket",
-                            "path": "shmul-app-CognitoStack/Site/ServerFunction/ServerFunction/Code/AssetBucket",
-                            "constructInfo": {
-                              "fqn": "aws-cdk-lib.aws_s3.BucketBase",
-                              "version": "2.124.0"
-                            }
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
-                          "version": "2.124.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_lambda.Function",
-                      "version": "2.124.0"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "constructs.Construct",
-                  "version": "10.3.0"
-                }
-              },
-              "Parameter_url": {
-                "id": "Parameter_url",
-                "path": "shmul-app-CognitoStack/Site/Parameter_url",
-                "children": {
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "shmul-app-CognitoStack/Site/Parameter_url/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::SSM::Parameter",
-                      "aws:cdk:cloudformation:props": {
-                        "name": "/sst/app/shmul/SvelteKitSite/Site/url",
-                        "tags": {
-                          "sst:app": "app",
-                          "sst:stage": "shmul"
-                        },
-                        "type": "String",
-                        "value": "localhost"
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_ssm.CfnParameter",
-                      "version": "2.124.0"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_ssm.StringParameter",
-                  "version": "2.124.0"
-                }
-              }
-            },
-            "constructInfo": {
-              "fqn": "constructs.Construct",
-              "version": "10.3.0"
-            }
-          },
-          "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a": {
-            "id": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a",
-            "path": "shmul-app-CognitoStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a",
-            "children": {
-              "Code": {
-                "id": "Code",
-                "path": "shmul-app-CognitoStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Code",
-                "children": {
-                  "Stage": {
-                    "id": "Stage",
-                    "path": "shmul-app-CognitoStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Code/Stage",
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.AssetStaging",
-                      "version": "2.124.0"
-                    }
-                  },
-                  "AssetBucket": {
-                    "id": "AssetBucket",
-                    "path": "shmul-app-CognitoStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Code/AssetBucket",
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_s3.BucketBase",
-                      "version": "2.124.0"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
-                  "version": "2.124.0"
-                }
-              },
-              "ServiceRole": {
-                "id": "ServiceRole",
-                "path": "shmul-app-CognitoStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole",
-                "children": {
-                  "ImportServiceRole": {
-                    "id": "ImportServiceRole",
-                    "path": "shmul-app-CognitoStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/ImportServiceRole",
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.Resource",
-                      "version": "2.124.0"
-                    }
-                  },
-                  "Resource": {
-                    "id": "Resource",
-                    "path": "shmul-app-CognitoStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/Resource",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
-                      "aws:cdk:cloudformation:props": {
-                        "assumeRolePolicyDocument": {
-                          "Statement": [
-                            {
-                              "Action": "sts:AssumeRole",
-                              "Effect": "Allow",
-                              "Principal": {
-                                "Service": "lambda.amazonaws.com"
-                              }
-                            }
-                          ],
-                          "Version": "2012-10-17"
-                        },
-                        "managedPolicyArns": [
-                          {
-                            "Fn::Join": [
-                              "",
-                              [
-                                "arn:",
-                                {
-                                  "Ref": "AWS::Partition"
-                                },
-                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-                              ]
-                            ]
-                          }
-                        ],
-                        "tags": [
-                          {
-                            "key": "sst:app",
-                            "value": "app"
-                          },
-                          {
-                            "key": "sst:stage",
-                            "value": "shmul"
-                          }
-                        ]
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
-                      "version": "2.124.0"
-                    }
-                  },
-                  "DefaultPolicy": {
-                    "id": "DefaultPolicy",
-                    "path": "shmul-app-CognitoStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/DefaultPolicy",
-                    "children": {
-                      "Resource": {
-                        "id": "Resource",
-                        "path": "shmul-app-CognitoStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/DefaultPolicy/Resource",
-                        "attributes": {
-                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
-                          "aws:cdk:cloudformation:props": {
-                            "policyDocument": {
-                              "Statement": [
-                                {
-                                  "Action": [
-                                    "logs:PutRetentionPolicy",
-                                    "logs:DeleteRetentionPolicy"
-                                  ],
-                                  "Effect": "Allow",
-                                  "Resource": "*"
-                                }
-                              ],
-                              "Version": "2012-10-17"
-                            },
-                            "policyName": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
-                            "roles": [
-                              {
-                                "Ref": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
-                              }
-                            ]
-                          }
-                        },
-                        "constructInfo": {
-                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
-                          "version": "2.124.0"
-                        }
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_iam.Policy",
-                      "version": "2.124.0"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_iam.Role",
-                  "version": "2.124.0"
-                }
-              },
-              "Resource": {
-                "id": "Resource",
-                "path": "shmul-app-CognitoStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Resource",
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.CfnResource",
-                  "version": "2.124.0"
-                }
-              }
-            },
-            "constructInfo": {
-              "fqn": "constructs.Construct",
-              "version": "10.3.0"
-            }
-          },
-          "SSTStackOutputApiEndpoint": {
-            "id": "SSTStackOutputApiEndpoint",
-            "path": "shmul-app-CognitoStack/SSTStackOutputApiEndpoint",
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.CfnOutput",
-              "version": "2.124.0"
-            }
-          },
-          "SSTStackOutputUserPoolId": {
-            "id": "SSTStackOutputUserPoolId",
-            "path": "shmul-app-CognitoStack/SSTStackOutputUserPoolId",
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.CfnOutput",
-              "version": "2.124.0"
-            }
-          },
-          "SSTStackOutputUserPoolClientId": {
-            "id": "SSTStackOutputUserPoolClientId",
-            "path": "shmul-app-CognitoStack/SSTStackOutputUserPoolClientId",
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.CfnOutput",
-              "version": "2.124.0"
-            }
-          },
-          "SSTStackOutputSSTMetadata": {
-            "id": "SSTStackOutputSSTMetadata",
-            "path": "shmul-app-CognitoStack/SSTStackOutputSSTMetadata",
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.CfnOutput",
-              "version": "2.124.0"
-            }
-          },
-          "BootstrapVersion": {
-            "id": "BootstrapVersion",
-            "path": "shmul-app-CognitoStack/BootstrapVersion",
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.CfnParameter",
-              "version": "2.124.0"
-            }
-          },
-          "CheckBootstrapVersion": {
-            "id": "CheckBootstrapVersion",
-            "path": "shmul-app-CognitoStack/CheckBootstrapVersion",
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.CfnRule",
-              "version": "2.124.0"
-            }
-          }
-        },
-        "constructInfo": {
-          "fqn": "aws-cdk-lib.Stack",
-          "version": "2.124.0"
-        }
-      },
       "shmul-app-PrismaStack": {
         "id": "shmul-app-PrismaStack",
         "path": "shmul-app-PrismaStack",
@@ -2042,6 +148,421 @@
               "version": "2.124.0"
             }
           },
+          "Auth": {
+            "id": "Auth",
+            "path": "shmul-app-PrismaStack/Auth",
+            "children": {
+              "UserPool": {
+                "id": "UserPool",
+                "path": "shmul-app-PrismaStack/Auth/UserPool",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "shmul-app-PrismaStack/Auth/UserPool/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Cognito::UserPool",
+                      "aws:cdk:cloudformation:props": {
+                        "accountRecoverySetting": {
+                          "recoveryMechanisms": [
+                            {
+                              "name": "verified_phone_number",
+                              "priority": 1
+                            },
+                            {
+                              "name": "verified_email",
+                              "priority": 2
+                            }
+                          ]
+                        },
+                        "adminCreateUserConfig": {
+                          "allowAdminCreateUserOnly": false
+                        },
+                        "autoVerifiedAttributes": [
+                          "email"
+                        ],
+                        "emailVerificationMessage": "The verification code to your new account is {####}",
+                        "emailVerificationSubject": "Verify your new account",
+                        "smsVerificationMessage": "The verification code to your new account is {####}",
+                        "userPoolTags": {
+                          "sst:app": "app",
+                          "sst:stage": "shmul"
+                        },
+                        "usernameAttributes": [
+                          "email"
+                        ],
+                        "usernameConfiguration": {
+                          "caseSensitive": false
+                        },
+                        "userPoolName": "shmul-app-Auth",
+                        "verificationMessageTemplate": {
+                          "defaultEmailOption": "CONFIRM_WITH_CODE",
+                          "emailMessage": "The verification code to your new account is {####}",
+                          "emailSubject": "Verify your new account",
+                          "smsMessage": "The verification code to your new account is {####}"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_cognito.CfnUserPool",
+                      "version": "2.124.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_cognito.UserPool",
+                  "version": "2.124.0"
+                }
+              },
+              "UserPoolClient": {
+                "id": "UserPoolClient",
+                "path": "shmul-app-PrismaStack/Auth/UserPoolClient",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "shmul-app-PrismaStack/Auth/UserPoolClient/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Cognito::UserPoolClient",
+                      "aws:cdk:cloudformation:props": {
+                        "allowedOAuthFlows": [
+                          "implicit",
+                          "code"
+                        ],
+                        "allowedOAuthFlowsUserPoolClient": true,
+                        "allowedOAuthScopes": [
+                          "profile",
+                          "phone",
+                          "email",
+                          "openid",
+                          "aws.cognito.signin.user.admin"
+                        ],
+                        "callbackUrLs": [
+                          "https://example.com"
+                        ],
+                        "supportedIdentityProviders": [
+                          "COGNITO"
+                        ],
+                        "userPoolId": {
+                          "Ref": "AuthUserPool8115E87F"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_cognito.CfnUserPoolClient",
+                      "version": "2.124.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_cognito.UserPoolClient",
+                  "version": "2.124.0"
+                }
+              },
+              "IdentityPool": {
+                "id": "IdentityPool",
+                "path": "shmul-app-PrismaStack/Auth/IdentityPool",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Cognito::IdentityPool",
+                  "aws:cdk:cloudformation:props": {
+                    "allowUnauthenticatedIdentities": true,
+                    "cognitoIdentityProviders": [
+                      {
+                        "providerName": {
+                          "Fn::Join": [
+                            "",
+                            [
+                              "cognito-idp.us-east-1.",
+                              {
+                                "Ref": "AWS::URLSuffix"
+                              },
+                              "/",
+                              {
+                                "Ref": "AuthUserPool8115E87F"
+                              }
+                            ]
+                          ]
+                        },
+                        "clientId": {
+                          "Ref": "AuthUserPoolClient0AA456E4"
+                        }
+                      }
+                    ],
+                    "identityPoolName": "shmul-app-Auth",
+                    "openIdConnectProviderArns": [],
+                    "supportedLoginProviders": {}
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_cognito.CfnIdentityPool",
+                  "version": "2.124.0"
+                }
+              },
+              "IdentityPoolAuthRole": {
+                "id": "IdentityPoolAuthRole",
+                "path": "shmul-app-PrismaStack/Auth/IdentityPoolAuthRole",
+                "children": {
+                  "ImportIdentityPoolAuthRole": {
+                    "id": "ImportIdentityPoolAuthRole",
+                    "path": "shmul-app-PrismaStack/Auth/IdentityPoolAuthRole/ImportIdentityPoolAuthRole",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.124.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "shmul-app-PrismaStack/Auth/IdentityPoolAuthRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRoleWithWebIdentity",
+                              "Condition": {
+                                "StringEquals": {
+                                  "cognito-identity.amazonaws.com:aud": {
+                                    "Ref": "AuthIdentityPool12DFB5E1"
+                                  }
+                                },
+                                "ForAnyValue:StringLike": {
+                                  "cognito-identity.amazonaws.com:amr": "authenticated"
+                                }
+                              },
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Federated": "cognito-identity.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "tags": [
+                          {
+                            "key": "sst:app",
+                            "value": "app"
+                          },
+                          {
+                            "key": "sst:stage",
+                            "value": "shmul"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.124.0"
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "shmul-app-PrismaStack/Auth/IdentityPoolAuthRole/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "shmul-app-PrismaStack/Auth/IdentityPoolAuthRole/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": [
+                                    "mobileanalytics:PutEvents",
+                                    "cognito-sync:*",
+                                    "cognito-identity:*"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": "*"
+                                },
+                                {
+                                  "Action": "execute-api:Invoke",
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:",
+                                        {
+                                          "Ref": "AWS::Partition"
+                                        },
+                                        ":execute-api:us-east-1:139004743199:",
+                                        {
+                                          "Ref": "PrismaApiBDE3456D"
+                                        },
+                                        "/*"
+                                      ]
+                                    ]
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "AuthIdentityPoolAuthRoleDefaultPolicy32D17CAC",
+                            "roles": [
+                              {
+                                "Ref": "AuthIdentityPoolAuthRoleD14DA003"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                          "version": "2.124.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Policy",
+                      "version": "2.124.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.124.0"
+                }
+              },
+              "IdentityPoolUnauthRole": {
+                "id": "IdentityPoolUnauthRole",
+                "path": "shmul-app-PrismaStack/Auth/IdentityPoolUnauthRole",
+                "children": {
+                  "ImportIdentityPoolUnauthRole": {
+                    "id": "ImportIdentityPoolUnauthRole",
+                    "path": "shmul-app-PrismaStack/Auth/IdentityPoolUnauthRole/ImportIdentityPoolUnauthRole",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.124.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "shmul-app-PrismaStack/Auth/IdentityPoolUnauthRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRoleWithWebIdentity",
+                              "Condition": {
+                                "StringEquals": {
+                                  "cognito-identity.amazonaws.com:aud": {
+                                    "Ref": "AuthIdentityPool12DFB5E1"
+                                  }
+                                },
+                                "ForAnyValue:StringLike": {
+                                  "cognito-identity.amazonaws.com:amr": "unauthenticated"
+                                }
+                              },
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Federated": "cognito-identity.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "tags": [
+                          {
+                            "key": "sst:app",
+                            "value": "app"
+                          },
+                          {
+                            "key": "sst:stage",
+                            "value": "shmul"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.124.0"
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "shmul-app-PrismaStack/Auth/IdentityPoolUnauthRole/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "shmul-app-PrismaStack/Auth/IdentityPoolUnauthRole/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": [
+                                    "mobileanalytics:PutEvents",
+                                    "cognito-sync:*"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": "*"
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "AuthIdentityPoolUnauthRoleDefaultPolicy0417F857",
+                            "roles": [
+                              {
+                                "Ref": "AuthIdentityPoolUnauthRoleA8DE48F3"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                          "version": "2.124.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Policy",
+                      "version": "2.124.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.124.0"
+                }
+              },
+              "IdentityPoolRoleAttachment": {
+                "id": "IdentityPoolRoleAttachment",
+                "path": "shmul-app-PrismaStack/Auth/IdentityPoolRoleAttachment",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Cognito::IdentityPoolRoleAttachment",
+                  "aws:cdk:cloudformation:props": {
+                    "identityPoolId": {
+                      "Ref": "AuthIdentityPool12DFB5E1"
+                    },
+                    "roles": {
+                      "authenticated": {
+                        "Fn::GetAtt": [
+                          "AuthIdentityPoolAuthRoleD14DA003",
+                          "Arn"
+                        ]
+                      },
+                      "unauthenticated": {
+                        "Fn::GetAtt": [
+                          "AuthIdentityPoolUnauthRoleA8DE48F3",
+                          "Arn"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_cognito.CfnIdentityPoolRoleAttachment",
+                  "version": "2.124.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.3.0"
+            }
+          },
           "PrismaLayer": {
             "id": "PrismaLayer",
             "path": "shmul-app-PrismaStack/PrismaLayer",
@@ -2174,6 +695,55 @@
                       "fqn": "aws-cdk-lib.aws_apigatewayv2.HttpStage",
                       "version": "2.124.0"
                     }
+                  },
+                  "jwt": {
+                    "id": "jwt",
+                    "path": "shmul-app-PrismaStack/PrismaApi/Api/jwt",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "shmul-app-PrismaStack/PrismaApi/Api/jwt/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::ApiGatewayV2::Authorizer",
+                          "aws:cdk:cloudformation:props": {
+                            "apiId": {
+                              "Ref": "PrismaApiBDE3456D"
+                            },
+                            "authorizerType": "JWT",
+                            "identitySource": [
+                              "$request.header.Authorization"
+                            ],
+                            "jwtConfiguration": {
+                              "audience": [
+                                {
+                                  "Ref": "AuthUserPoolClient0AA456E4"
+                                }
+                              ],
+                              "issuer": {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    "https://cognito-idp.us-east-1.amazonaws.com/",
+                                    {
+                                      "Ref": "AuthUserPool8115E87F"
+                                    }
+                                  ]
+                                ]
+                              }
+                            },
+                            "name": "jwt"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_apigatewayv2.CfnAuthorizer",
+                          "version": "2.124.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_apigatewayv2.HttpAuthorizer",
+                      "version": "2.124.0"
+                    }
                   }
                 },
                 "constructInfo": {
@@ -2223,6 +793,22 @@
                 },
                 "constructInfo": {
                   "fqn": "aws-cdk-lib.aws_logs.LogGroup",
+                  "version": "2.124.0"
+                }
+              },
+              "Api-PrismaApi-Authorizer-jwt-UserPool": {
+                "id": "Api-PrismaApi-Authorizer-jwt-UserPool",
+                "path": "shmul-app-PrismaStack/PrismaApi/Api-PrismaApi-Authorizer-jwt-UserPool",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.124.0"
+                }
+              },
+              "Api-PrismaApi-Authorizer-jwt-UserPoolClient-0": {
+                "id": "Api-PrismaApi-Authorizer-jwt-UserPoolClient-0",
+                "path": "shmul-app-PrismaStack/PrismaApi/Api-PrismaApi-Authorizer-jwt-UserPoolClient-0",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
                   "version": "2.124.0"
                 }
               },
@@ -2488,7 +1074,10 @@
                         "apiId": {
                           "Ref": "PrismaApiBDE3456D"
                         },
-                        "authorizationType": "NONE",
+                        "authorizationType": "JWT",
+                        "authorizerId": {
+                          "Ref": "PrismaApijwt9BC983D7"
+                        },
                         "routeKey": "GET /post",
                         "target": {
                           "Fn::Join": [
@@ -2555,9 +1144,510 @@
               "version": "10.3.0"
             }
           },
+          "Site": {
+            "id": "Site",
+            "path": "shmul-app-PrismaStack/Site",
+            "children": {
+              "ServerFunctionRole": {
+                "id": "ServerFunctionRole",
+                "path": "shmul-app-PrismaStack/Site/ServerFunctionRole",
+                "children": {
+                  "ImportServerFunctionRole": {
+                    "id": "ImportServerFunctionRole",
+                    "path": "shmul-app-PrismaStack/Site/ServerFunctionRole/ImportServerFunctionRole",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.124.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "shmul-app-PrismaStack/Site/ServerFunctionRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "AWS": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:",
+                                      {
+                                        "Ref": "AWS::Partition"
+                                      },
+                                      ":iam::139004743199:root"
+                                    ]
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "maxSessionDuration": 43200,
+                        "tags": [
+                          {
+                            "key": "sst:app",
+                            "value": "app"
+                          },
+                          {
+                            "key": "sst:stage",
+                            "value": "shmul"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.124.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.124.0"
+                }
+              },
+              "ServerFunction": {
+                "id": "ServerFunction",
+                "path": "shmul-app-PrismaStack/Site/ServerFunction",
+                "children": {
+                  "AssetReplacerPolicy": {
+                    "id": "AssetReplacerPolicy",
+                    "path": "shmul-app-PrismaStack/Site/ServerFunction/AssetReplacerPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "shmul-app-PrismaStack/Site/ServerFunction/AssetReplacerPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": [
+                                    "s3:GetObject",
+                                    "s3:PutObject"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:",
+                                        {
+                                          "Ref": "AWS::Partition"
+                                        },
+                                        ":s3:::placeholder/*"
+                                      ]
+                                    ]
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "SiteServerFunctionAssetReplacerPolicy00BAA986",
+                            "roles": [
+                              {
+                                "Ref": "CustomResourceHandlerServiceRole41AEC181"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                          "version": "2.124.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Policy",
+                      "version": "2.124.0"
+                    }
+                  },
+                  "AssetReplacer": {
+                    "id": "AssetReplacer",
+                    "path": "shmul-app-PrismaStack/Site/ServerFunction/AssetReplacer",
+                    "children": {
+                      "Default": {
+                        "id": "Default",
+                        "path": "shmul-app-PrismaStack/Site/ServerFunction/AssetReplacer/Default",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.CfnResource",
+                          "version": "2.124.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CustomResource",
+                      "version": "2.124.0"
+                    }
+                  },
+                  "IServerFunctionBucket": {
+                    "id": "IServerFunctionBucket",
+                    "path": "shmul-app-PrismaStack/Site/ServerFunction/IServerFunctionBucket",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                      "version": "2.124.0"
+                    }
+                  },
+                  "ServerFunction": {
+                    "id": "ServerFunction",
+                    "path": "shmul-app-PrismaStack/Site/ServerFunction/ServerFunction",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "shmul-app-PrismaStack/Site/ServerFunction/ServerFunction/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                          "aws:cdk:cloudformation:props": {
+                            "architectures": [
+                              "arm64"
+                            ],
+                            "code": {
+                              "s3Bucket": "cdk-hnb659fds-assets-139004743199-us-east-1",
+                              "s3Key": "b57c044caf9d9112ead30d8e34bb7b41ac572ff0c6879db8c1319bad86855c2f.zip"
+                            },
+                            "description": "Server handler placeholder",
+                            "environment": {
+                              "variables": {
+                                "VITE_APP_API_URL": {
+                                  "Fn::GetAtt": [
+                                    "PrismaApiBDE3456D",
+                                    "ApiEndpoint"
+                                  ]
+                                },
+                                "VITE_APP_REGION": "us-east-1",
+                                "VITE_APP_USER_POOL_ID": {
+                                  "Ref": "AuthUserPool8115E87F"
+                                },
+                                "VITE_APP_USER_POOL_CLIENT_ID": {
+                                  "Ref": "AuthUserPoolClient0AA456E4"
+                                },
+                                "SST_APP": "app",
+                                "SST_STAGE": "shmul",
+                                "SST_SSM_PREFIX": "/sst/app/shmul/"
+                              }
+                            },
+                            "handler": "index.handler",
+                            "memorySize": 1024,
+                            "role": {
+                              "Fn::GetAtt": [
+                                "SiteServerFunctionRoleED71295F",
+                                "Arn"
+                              ]
+                            },
+                            "runtime": "nodejs18.x",
+                            "tags": [
+                              {
+                                "key": "sst:app",
+                                "value": "app"
+                              },
+                              {
+                                "key": "sst:stage",
+                                "value": "shmul"
+                              }
+                            ],
+                            "timeout": 10
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                          "version": "2.124.0"
+                        }
+                      },
+                      "LogRetention": {
+                        "id": "LogRetention",
+                        "path": "shmul-app-PrismaStack/Site/ServerFunction/ServerFunction/LogRetention",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "shmul-app-PrismaStack/Site/ServerFunction/ServerFunction/LogRetention/Resource",
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.CfnResource",
+                              "version": "2.124.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_logs.LogRetention",
+                          "version": "2.124.0"
+                        }
+                      },
+                      "LogGroup": {
+                        "id": "LogGroup",
+                        "path": "shmul-app-PrismaStack/Site/ServerFunction/ServerFunction/LogGroup",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.Resource",
+                          "version": "2.124.0"
+                        }
+                      },
+                      "Code": {
+                        "id": "Code",
+                        "path": "shmul-app-PrismaStack/Site/ServerFunction/ServerFunction/Code",
+                        "children": {
+                          "Stage": {
+                            "id": "Stage",
+                            "path": "shmul-app-PrismaStack/Site/ServerFunction/ServerFunction/Code/Stage",
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.AssetStaging",
+                              "version": "2.124.0"
+                            }
+                          },
+                          "AssetBucket": {
+                            "id": "AssetBucket",
+                            "path": "shmul-app-PrismaStack/Site/ServerFunction/ServerFunction/Code/AssetBucket",
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                              "version": "2.124.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                          "version": "2.124.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_lambda.Function",
+                      "version": "2.124.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "constructs.Construct",
+                  "version": "10.3.0"
+                }
+              },
+              "Parameter_url": {
+                "id": "Parameter_url",
+                "path": "shmul-app-PrismaStack/Site/Parameter_url",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "shmul-app-PrismaStack/Site/Parameter_url/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::SSM::Parameter",
+                      "aws:cdk:cloudformation:props": {
+                        "name": "/sst/app/shmul/SvelteKitSite/Site/url",
+                        "tags": {
+                          "sst:app": "app",
+                          "sst:stage": "shmul"
+                        },
+                        "type": "String",
+                        "value": "localhost"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ssm.CfnParameter",
+                      "version": "2.124.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ssm.StringParameter",
+                  "version": "2.124.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.3.0"
+            }
+          },
+          "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a": {
+            "id": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a",
+            "path": "shmul-app-PrismaStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a",
+            "children": {
+              "Code": {
+                "id": "Code",
+                "path": "shmul-app-PrismaStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "shmul-app-PrismaStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Code/Stage",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.AssetStaging",
+                      "version": "2.124.0"
+                    }
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "shmul-app-PrismaStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Code/AssetBucket",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                      "version": "2.124.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                  "version": "2.124.0"
+                }
+              },
+              "ServiceRole": {
+                "id": "ServiceRole",
+                "path": "shmul-app-PrismaStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole",
+                "children": {
+                  "ImportServiceRole": {
+                    "id": "ImportServiceRole",
+                    "path": "shmul-app-PrismaStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/ImportServiceRole",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.124.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "shmul-app-PrismaStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:props": {
+                        "assumeRolePolicyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "sts:AssumeRole",
+                              "Effect": "Allow",
+                              "Principal": {
+                                "Service": "lambda.amazonaws.com"
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "managedPolicyArns": [
+                          {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:",
+                                {
+                                  "Ref": "AWS::Partition"
+                                },
+                                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                              ]
+                            ]
+                          }
+                        ],
+                        "tags": [
+                          {
+                            "key": "sst:app",
+                            "value": "app"
+                          },
+                          {
+                            "key": "sst:stage",
+                            "value": "shmul"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "version": "2.124.0"
+                    }
+                  },
+                  "DefaultPolicy": {
+                    "id": "DefaultPolicy",
+                    "path": "shmul-app-PrismaStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/DefaultPolicy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "shmul-app-PrismaStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/DefaultPolicy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                          "aws:cdk:cloudformation:props": {
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": [
+                                    "logs:PutRetentionPolicy",
+                                    "logs:DeleteRetentionPolicy"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Resource": "*"
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            },
+                            "policyName": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+                            "roles": [
+                              {
+                                "Ref": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
+                              }
+                            ]
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                          "version": "2.124.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.Policy",
+                      "version": "2.124.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "version": "2.124.0"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "shmul-app-PrismaStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Resource",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.124.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.3.0"
+            }
+          },
           "SSTStackOutputprismaApi": {
             "id": "SSTStackOutputprismaApi",
             "path": "shmul-app-PrismaStack/SSTStackOutputprismaApi",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.124.0"
+            }
+          },
+          "SSTStackOutputApiEndpoint": {
+            "id": "SSTStackOutputApiEndpoint",
+            "path": "shmul-app-PrismaStack/SSTStackOutputApiEndpoint",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.124.0"
+            }
+          },
+          "SSTStackOutputUserPoolId": {
+            "id": "SSTStackOutputUserPoolId",
+            "path": "shmul-app-PrismaStack/SSTStackOutputUserPoolId",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.124.0"
+            }
+          },
+          "SSTStackOutputUserPoolClientId": {
+            "id": "SSTStackOutputUserPoolClientId",
+            "path": "shmul-app-PrismaStack/SSTStackOutputUserPoolClientId",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
               "version": "2.124.0"

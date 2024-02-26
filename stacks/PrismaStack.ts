@@ -1,9 +1,17 @@
 import path from 'path';
 import fs from 'fs';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
-import { Api, StackContext } from 'sst/constructs';
+import { Api, StackContext, SvelteKitSite, Cognito } from 'sst/constructs';
 
 export function PrismaStack({ stack, app }: StackContext) {
+	const auth = new Cognito(stack, 'Auth', {
+		login: ['email']
+	});
+
+	// Create Api
+
+	// attach permissions for authenticated users to the api
+
 	if (!app.local) {
 		// Create a layer for production
 		// This saves shipping Prisma binaries once per function
@@ -34,8 +42,18 @@ export function PrismaStack({ stack, app }: StackContext) {
 		stack.addDefaultFunctionLayers([prismaLayer]);
 	}
 
-	const api = new Api(stack, 'PrismaApi', {
+	const apiPrisma = new Api(stack, 'PrismaApi', {
+		authorizers: {
+			jwt: {
+				type: 'user_pool',
+				userPool: {
+					id: auth.userPoolId,
+					clientIds: [auth.userPoolClientId]
+				}
+			}
+		},
 		defaults: {
+			authorizer: 'jwt',
 			function: {
 				environment: {
 					DATABASE_URL: app.local
@@ -58,7 +76,24 @@ export function PrismaStack({ stack, app }: StackContext) {
 		}
 	});
 
+	const site = new SvelteKitSite(stack, 'Site', {
+		buildCommand: 'npm run build',
+		buildOutput: 'dist',
+		environment: {
+			VITE_APP_API_URL: apiPrisma.url,
+			VITE_APP_REGION: app.region,
+			VITE_APP_USER_POOL_ID: auth.userPoolId,
+			VITE_APP_USER_POOL_CLIENT_ID: auth.userPoolClientId
+		}
+	});
+
+	auth.attachPermissionsForAuthUsers(stack, [apiPrisma]);
+
 	stack.addOutputs({
-		prismaApi: api.url
+		prismaApi: apiPrisma.url,
+		ApiEndpoint: apiPrisma.url,
+		UserPoolId: auth.userPoolId,
+		UserPoolClientId: auth.userPoolClientId,
+		SiteUrl: site.url
 	});
 }

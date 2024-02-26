@@ -1,313 +1,6 @@
 {
   "version": "36.0.0",
   "artifacts": {
-    "shmul-app-CognitoStack.assets": {
-      "type": "cdk:asset-manifest",
-      "properties": {
-        "file": "shmul-app-CognitoStack.assets.json",
-        "requiresBootstrapStackVersion": 6,
-        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
-      }
-    },
-    "shmul-app-CognitoStack": {
-      "type": "aws:cloudformation:stack",
-      "environment": "aws://139004743199/us-east-1",
-      "properties": {
-        "templateFile": "shmul-app-CognitoStack.template.json",
-        "terminationProtection": false,
-        "tags": {
-          "sst:app": "app",
-          "sst:stage": "shmul"
-        },
-        "validateOnSynth": false,
-        "assumeRoleArn": "arn:${AWS::Partition}:iam::139004743199:role/cdk-hnb659fds-deploy-role-139004743199-us-east-1",
-        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::139004743199:role/cdk-hnb659fds-cfn-exec-role-139004743199-us-east-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-139004743199-us-east-1/70eb046b13a8b48fdd6fdb3a6b08ae2512de035ed2a53c46ec31b183c64bc73e.json",
-        "requiresBootstrapStackVersion": 6,
-        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
-        "additionalDependencies": [
-          "shmul-app-CognitoStack.assets"
-        ],
-        "lookupRole": {
-          "arn": "arn:${AWS::Partition}:iam::139004743199:role/cdk-hnb659fds-lookup-role-139004743199-us-east-1",
-          "requiresBootstrapStackVersion": 8,
-          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
-        }
-      },
-      "dependencies": [
-        "shmul-app-CognitoStack.assets"
-      ],
-      "metadata": {
-        "/shmul-app-CognitoStack": [
-          {
-            "type": "aws:cdk:stack-tags",
-            "data": [
-              {
-                "Key": "sst:app",
-                "Value": "app"
-              },
-              {
-                "Key": "sst:stage",
-                "Value": "shmul"
-              }
-            ]
-          }
-        ],
-        "/shmul-app-CognitoStack/CustomResourceHandler/ServiceRole/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "CustomResourceHandlerServiceRole41AEC181"
-          }
-        ],
-        "/shmul-app-CognitoStack/CustomResourceHandler/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "CustomResourceHandlerE8FB56BA"
-          }
-        ],
-        "/shmul-app-CognitoStack/Auth/UserPool/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "AuthUserPool8115E87F"
-          }
-        ],
-        "/shmul-app-CognitoStack/Auth/UserPoolClient/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "AuthUserPoolClient0AA456E4"
-          }
-        ],
-        "/shmul-app-CognitoStack/Auth/IdentityPool": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "AuthIdentityPool12DFB5E1"
-          }
-        ],
-        "/shmul-app-CognitoStack/Auth/IdentityPoolAuthRole/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "AuthIdentityPoolAuthRoleD14DA003"
-          }
-        ],
-        "/shmul-app-CognitoStack/Auth/IdentityPoolAuthRole/DefaultPolicy/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "AuthIdentityPoolAuthRoleDefaultPolicy32D17CAC"
-          }
-        ],
-        "/shmul-app-CognitoStack/Auth/IdentityPoolUnauthRole/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "AuthIdentityPoolUnauthRoleA8DE48F3"
-          }
-        ],
-        "/shmul-app-CognitoStack/Auth/IdentityPoolUnauthRole/DefaultPolicy/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "AuthIdentityPoolUnauthRoleDefaultPolicy0417F857"
-          }
-        ],
-        "/shmul-app-CognitoStack/Auth/IdentityPoolRoleAttachment": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "AuthIdentityPoolRoleAttachmentB0D3DC72"
-          }
-        ],
-        "/shmul-app-CognitoStack/Api/Api/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ApiCD79AAA0"
-          }
-        ],
-        "/shmul-app-CognitoStack/Api/Api/DefaultStage/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ApiDefaultStage1AAE989B"
-          }
-        ],
-        "/shmul-app-CognitoStack/Api/Api/jwt/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ApijwtBEABF1DF"
-          }
-        ],
-        "/shmul-app-CognitoStack/Api/LogGroup/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ApiLogGroup1717FE17"
-          }
-        ],
-        "/shmul-app-CognitoStack/Api/Lambda_GET_--private/ServiceRole/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ApiLambdaGETprivateServiceRole12DB705C"
-          }
-        ],
-        "/shmul-app-CognitoStack/Api/Lambda_GET_--private/ServiceRole/DefaultPolicy/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ApiLambdaGETprivateServiceRoleDefaultPolicy926B935A"
-          }
-        ],
-        "/shmul-app-CognitoStack/Api/Lambda_GET_--private/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ApiLambdaGETprivate01176F88"
-          }
-        ],
-        "/shmul-app-CognitoStack/Api/Route_GET_--private/Integration_GET_--private/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ApiRouteGETprivateIntegrationGETprivate0815C686"
-          }
-        ],
-        "/shmul-app-CognitoStack/Api/Route_GET_--private/Integration_GET_--private-Permission": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ApiRouteGETprivateIntegrationGETprivatePermission3B52AACE"
-          }
-        ],
-        "/shmul-app-CognitoStack/Api/Route_GET_--private/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ApiRouteGETprivate77529D0C"
-          }
-        ],
-        "/shmul-app-CognitoStack/Api/Lambda_GET_--public/ServiceRole/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ApiLambdaGETpublicServiceRole8DF00660"
-          }
-        ],
-        "/shmul-app-CognitoStack/Api/Lambda_GET_--public/ServiceRole/DefaultPolicy/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ApiLambdaGETpublicServiceRoleDefaultPolicy98D67C04"
-          }
-        ],
-        "/shmul-app-CognitoStack/Api/Lambda_GET_--public/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ApiLambdaGETpublic72680C24"
-          }
-        ],
-        "/shmul-app-CognitoStack/Api/Route_GET_--public/Integration_GET_--public/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ApiRouteGETpublicIntegrationGETpublicB5E1083B"
-          }
-        ],
-        "/shmul-app-CognitoStack/Api/Route_GET_--public/Integration_GET_--public-Permission": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ApiRouteGETpublicIntegrationGETpublicPermission6A3206A1"
-          }
-        ],
-        "/shmul-app-CognitoStack/Api/Route_GET_--public/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ApiRouteGETpublicD5552DEC"
-          }
-        ],
-        "/shmul-app-CognitoStack/Api/Parameter_url/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ApiParameterurl09B86AB9"
-          }
-        ],
-        "/shmul-app-CognitoStack/Site/ServerFunctionRole/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "SiteServerFunctionRoleED71295F"
-          }
-        ],
-        "/shmul-app-CognitoStack/Site/ServerFunction/AssetReplacerPolicy/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "SiteServerFunctionAssetReplacerPolicy00BAA986"
-          }
-        ],
-        "/shmul-app-CognitoStack/Site/ServerFunction/AssetReplacer/Default": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "SiteServerFunctionAssetReplacer4798FE1F"
-          }
-        ],
-        "/shmul-app-CognitoStack/Site/ServerFunction/ServerFunction/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "SiteServerFunction70E7C026"
-          }
-        ],
-        "/shmul-app-CognitoStack/Site/ServerFunction/ServerFunction/LogRetention/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "SiteServerFunctionLogRetention82FC0336"
-          }
-        ],
-        "/shmul-app-CognitoStack/Site/Parameter_url/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "SiteParameterurl4E8F14E2"
-          }
-        ],
-        "/shmul-app-CognitoStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
-          }
-        ],
-        "/shmul-app-CognitoStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/DefaultPolicy/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB"
-          }
-        ],
-        "/shmul-app-CognitoStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A"
-          }
-        ],
-        "/shmul-app-CognitoStack/SSTStackOutputApiEndpoint": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "ApiEndpoint"
-          }
-        ],
-        "/shmul-app-CognitoStack/SSTStackOutputUserPoolId": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "UserPoolId"
-          }
-        ],
-        "/shmul-app-CognitoStack/SSTStackOutputUserPoolClientId": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "UserPoolClientId"
-          }
-        ],
-        "/shmul-app-CognitoStack/SSTStackOutputSSTMetadata": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "SSTMetadata"
-          }
-        ],
-        "/shmul-app-CognitoStack/BootstrapVersion": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "BootstrapVersion"
-          }
-        ],
-        "/shmul-app-CognitoStack/CheckBootstrapVersion": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "CheckBootstrapVersion"
-          }
-        ]
-      },
-      "displayName": "shmul-app-CognitoStack"
-    },
     "shmul-app-PrismaStack.assets": {
       "type": "cdk:asset-manifest",
       "properties": {
@@ -329,7 +22,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::139004743199:role/cdk-hnb659fds-deploy-role-139004743199-us-east-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::139004743199:role/cdk-hnb659fds-cfn-exec-role-139004743199-us-east-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-139004743199-us-east-1/459ab841582d5c82c31559f4e6abeb658cd7dda53b8520ca05e8b9b634ba3a49.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-139004743199-us-east-1/1a6153dff37565aefaf811f6a78becfa98ca32e719ff03b04146fc1ebdb180f4.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -372,6 +65,54 @@
             "data": "CustomResourceHandlerE8FB56BA"
           }
         ],
+        "/shmul-app-PrismaStack/Auth/UserPool/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuthUserPool8115E87F"
+          }
+        ],
+        "/shmul-app-PrismaStack/Auth/UserPoolClient/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuthUserPoolClient0AA456E4"
+          }
+        ],
+        "/shmul-app-PrismaStack/Auth/IdentityPool": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuthIdentityPool12DFB5E1"
+          }
+        ],
+        "/shmul-app-PrismaStack/Auth/IdentityPoolAuthRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuthIdentityPoolAuthRoleD14DA003"
+          }
+        ],
+        "/shmul-app-PrismaStack/Auth/IdentityPoolAuthRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuthIdentityPoolAuthRoleDefaultPolicy32D17CAC"
+          }
+        ],
+        "/shmul-app-PrismaStack/Auth/IdentityPoolUnauthRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuthIdentityPoolUnauthRoleA8DE48F3"
+          }
+        ],
+        "/shmul-app-PrismaStack/Auth/IdentityPoolUnauthRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuthIdentityPoolUnauthRoleDefaultPolicy0417F857"
+          }
+        ],
+        "/shmul-app-PrismaStack/Auth/IdentityPoolRoleAttachment": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "AuthIdentityPoolRoleAttachmentB0D3DC72"
+          }
+        ],
         "/shmul-app-PrismaStack/PrismaLayer/Resource": [
           {
             "type": "aws:cdk:logicalId",
@@ -388,6 +129,12 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "PrismaApiDefaultStage91DDAE19"
+          }
+        ],
+        "/shmul-app-PrismaStack/PrismaApi/Api/jwt/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "PrismaApijwt9BC983D7"
           }
         ],
         "/shmul-app-PrismaStack/PrismaApi/LogGroup/Resource": [
@@ -438,10 +185,82 @@
             "data": "PrismaApiParameterurl4600542D"
           }
         ],
+        "/shmul-app-PrismaStack/Site/ServerFunctionRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SiteServerFunctionRoleED71295F"
+          }
+        ],
+        "/shmul-app-PrismaStack/Site/ServerFunction/AssetReplacerPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SiteServerFunctionAssetReplacerPolicy00BAA986"
+          }
+        ],
+        "/shmul-app-PrismaStack/Site/ServerFunction/AssetReplacer/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SiteServerFunctionAssetReplacer4798FE1F"
+          }
+        ],
+        "/shmul-app-PrismaStack/Site/ServerFunction/ServerFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SiteServerFunction70E7C026"
+          }
+        ],
+        "/shmul-app-PrismaStack/Site/ServerFunction/ServerFunction/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SiteServerFunctionLogRetention82FC0336"
+          }
+        ],
+        "/shmul-app-PrismaStack/Site/Parameter_url/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SiteParameterurl4E8F14E2"
+          }
+        ],
+        "/shmul-app-PrismaStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
+          }
+        ],
+        "/shmul-app-PrismaStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB"
+          }
+        ],
+        "/shmul-app-PrismaStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A"
+          }
+        ],
         "/shmul-app-PrismaStack/SSTStackOutputprismaApi": [
           {
             "type": "aws:cdk:logicalId",
             "data": "prismaApi"
+          }
+        ],
+        "/shmul-app-PrismaStack/SSTStackOutputApiEndpoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ApiEndpoint"
+          }
+        ],
+        "/shmul-app-PrismaStack/SSTStackOutputUserPoolId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "UserPoolId"
+          }
+        ],
+        "/shmul-app-PrismaStack/SSTStackOutputUserPoolClientId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "UserPoolClientId"
           }
         ],
         "/shmul-app-PrismaStack/SSTStackOutputSSTMetadata": [

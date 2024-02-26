@@ -1,6 +1,6 @@
 import type { SSTConfig } from 'sst';
-import { SvelteKitSite } from 'sst/constructs';
-import { CognitoStack } from './stacks/Cognito';
+// import { SvelteKitSite } from 'sst/constructs';
+// import { CognitoStack } from './stacks/Cognito';
 import { PrismaStack } from './stacks/PrismaStack';
 
 export default {
@@ -11,7 +11,6 @@ export default {
 		};
 	},
 	stacks(app) {
-		app.stack(CognitoStack);
 		app.stack(PrismaStack);
 	}
 } satisfies SSTConfig;
