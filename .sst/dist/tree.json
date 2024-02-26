@@ -935,7 +935,8 @@
                           "x86_64"
                         ],
                         "code": {
-                          "zipFile": "export function placeholder() {}"
+                          "s3Bucket": "cdk-hnb659fds-assets-139004743199-us-east-1",
+                          "s3Key": "0a4fc3db6ce063d0ab71637ed16dd78c1099b904cd073f5c2fe945a05943b74b.zip"
                         },
                         "environment": {
                           "variables": {
@@ -949,7 +950,7 @@
                         "ephemeralStorage": {
                           "size": 512
                         },
-                        "handler": "index.placeholder",
+                        "handler": "packages/functions/src/index.handler",
                         "layers": [
                           {
                             "Ref": "PrismaLayer958161C6"
@@ -981,6 +982,58 @@
                     },
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                      "version": "2.124.0"
+                    }
+                  },
+                  "Lambda_GET_--post-Sourcemap": {
+                    "id": "Lambda_GET_--post-Sourcemap",
+                    "path": "shmul-app-PrismaStack/PrismaApi/Lambda_GET_--post/Lambda_GET_--post-Sourcemap",
+                    "children": {
+                      "Stage": {
+                        "id": "Stage",
+                        "path": "shmul-app-PrismaStack/PrismaApi/Lambda_GET_--post/Lambda_GET_--post-Sourcemap/Stage",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.AssetStaging",
+                          "version": "2.124.0"
+                        }
+                      },
+                      "AssetBucket": {
+                        "id": "AssetBucket",
+                        "path": "shmul-app-PrismaStack/PrismaApi/Lambda_GET_--post/Lambda_GET_--post-Sourcemap/AssetBucket",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                          "version": "2.124.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                      "version": "2.124.0"
+                    }
+                  },
+                  "Code": {
+                    "id": "Code",
+                    "path": "shmul-app-PrismaStack/PrismaApi/Lambda_GET_--post/Code",
+                    "children": {
+                      "Stage": {
+                        "id": "Stage",
+                        "path": "shmul-app-PrismaStack/PrismaApi/Lambda_GET_--post/Code/Stage",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.AssetStaging",
+                          "version": "2.124.0"
+                        }
+                      },
+                      "AssetBucket": {
+                        "id": "AssetBucket",
+                        "path": "shmul-app-PrismaStack/PrismaApi/Lambda_GET_--post/Code/AssetBucket",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                          "version": "2.124.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
                       "version": "2.124.0"
                     }
                   }
@@ -1148,56 +1201,27 @@
             "id": "Site",
             "path": "shmul-app-PrismaStack/Site",
             "children": {
-              "ServerFunctionRole": {
-                "id": "ServerFunctionRole",
-                "path": "shmul-app-PrismaStack/Site/ServerFunctionRole",
+              "S3Bucket": {
+                "id": "S3Bucket",
+                "path": "shmul-app-PrismaStack/Site/S3Bucket",
                 "children": {
-                  "ImportServerFunctionRole": {
-                    "id": "ImportServerFunctionRole",
-                    "path": "shmul-app-PrismaStack/Site/ServerFunctionRole/ImportServerFunctionRole",
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.Resource",
-                      "version": "2.124.0"
-                    }
-                  },
                   "Resource": {
                     "id": "Resource",
-                    "path": "shmul-app-PrismaStack/Site/ServerFunctionRole/Resource",
+                    "path": "shmul-app-PrismaStack/Site/S3Bucket/Resource",
                     "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                      "aws:cdk:cloudformation:type": "AWS::S3::Bucket",
                       "aws:cdk:cloudformation:props": {
-                        "assumeRolePolicyDocument": {
-                          "Statement": [
-                            {
-                              "Action": "sts:AssumeRole",
-                              "Effect": "Allow",
-                              "Principal": {
-                                "AWS": {
-                                  "Fn::Join": [
-                                    "",
-                                    [
-                                      "arn:",
-                                      {
-                                        "Ref": "AWS::Partition"
-                                      },
-                                      ":iam::139004743199:root"
-                                    ]
-                                  ]
-                                }
-                              }
-                            },
-                            {
-                              "Action": "sts:AssumeRole",
-                              "Effect": "Allow",
-                              "Principal": {
-                                "Service": "lambda.amazonaws.com"
-                              }
-                            }
-                          ],
-                          "Version": "2012-10-17"
+                        "publicAccessBlockConfiguration": {
+                          "blockPublicAcls": true,
+                          "blockPublicPolicy": true,
+                          "ignorePublicAcls": true,
+                          "restrictPublicBuckets": true
                         },
-                        "maxSessionDuration": 43200,
                         "tags": [
+                          {
+                            "key": "aws-cdk:auto-delete-objects",
+                            "value": "true"
+                          },
                           {
                             "key": "sst:app",
                             "value": "app"
@@ -1210,13 +1234,191 @@
                       }
                     },
                     "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                      "fqn": "aws-cdk-lib.aws_s3.CfnBucket",
+                      "version": "2.124.0"
+                    }
+                  },
+                  "Policy": {
+                    "id": "Policy",
+                    "path": "shmul-app-PrismaStack/Site/S3Bucket/Policy",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "shmul-app-PrismaStack/Site/S3Bucket/Policy/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::S3::BucketPolicy",
+                          "aws:cdk:cloudformation:props": {
+                            "bucket": {
+                              "Ref": "SiteS3Bucket43E5BB2F"
+                            },
+                            "policyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "s3:*",
+                                  "Condition": {
+                                    "Bool": {
+                                      "aws:SecureTransport": "false"
+                                    }
+                                  },
+                                  "Effect": "Deny",
+                                  "Principal": {
+                                    "AWS": "*"
+                                  },
+                                  "Resource": [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "SiteS3Bucket43E5BB2F",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          {
+                                            "Fn::GetAtt": [
+                                              "SiteS3Bucket43E5BB2F",
+                                              "Arn"
+                                            ]
+                                          },
+                                          "/*"
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Action": [
+                                    "s3:PutBucketPolicy",
+                                    "s3:GetBucket*",
+                                    "s3:List*",
+                                    "s3:DeleteObject*"
+                                  ],
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "AWS": {
+                                      "Fn::GetAtt": [
+                                        "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092",
+                                        "Arn"
+                                      ]
+                                    }
+                                  },
+                                  "Resource": [
+                                    {
+                                      "Fn::GetAtt": [
+                                        "SiteS3Bucket43E5BB2F",
+                                        "Arn"
+                                      ]
+                                    },
+                                    {
+                                      "Fn::Join": [
+                                        "",
+                                        [
+                                          {
+                                            "Fn::GetAtt": [
+                                              "SiteS3Bucket43E5BB2F",
+                                              "Arn"
+                                            ]
+                                          },
+                                          "/*"
+                                        ]
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "Action": "s3:GetObject",
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "CanonicalUser": {
+                                      "Fn::GetAtt": [
+                                        "SiteDistributionOrigin2S3OriginD0424A5E",
+                                        "S3CanonicalUserId"
+                                      ]
+                                    }
+                                  },
+                                  "Resource": {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        {
+                                          "Fn::GetAtt": [
+                                            "SiteS3Bucket43E5BB2F",
+                                            "Arn"
+                                          ]
+                                        },
+                                        "/*"
+                                      ]
+                                    ]
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_s3.CfnBucketPolicy",
+                          "version": "2.124.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.BucketPolicy",
+                      "version": "2.124.0"
+                    }
+                  },
+                  "AutoDeleteObjectsCustomResource": {
+                    "id": "AutoDeleteObjectsCustomResource",
+                    "path": "shmul-app-PrismaStack/Site/S3Bucket/AutoDeleteObjectsCustomResource",
+                    "children": {
+                      "Default": {
+                        "id": "Default",
+                        "path": "shmul-app-PrismaStack/Site/S3Bucket/AutoDeleteObjectsCustomResource/Default",
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.CfnResource",
+                          "version": "2.124.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CustomResource",
                       "version": "2.124.0"
                     }
                   }
                 },
                 "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_iam.Role",
+                  "fqn": "aws-cdk-lib.aws_s3.Bucket",
+                  "version": "2.124.0"
+                }
+              },
+              "CloudFrontFunction": {
+                "id": "CloudFrontFunction",
+                "path": "shmul-app-PrismaStack/Site/CloudFrontFunction",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "shmul-app-PrismaStack/Site/CloudFrontFunction/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::CloudFront::Function",
+                      "aws:cdk:cloudformation:props": {
+                        "autoPublish": true,
+                        "functionCode": "function handler(n){var r=n.request;r.headers[\"x-forwarded-host\"]=r.headers.host;for(var e in r.querystring)e.includes(\"/\")&&(r.querystring[encodeURIComponent(e)]=r.querystring[e],delete r.querystring[e]);return r}\n",
+                        "functionConfig": {
+                          "comment": "us-east-1shmulappPrismaStackSiteCloudFrontFunction219338E7",
+                          "runtime": "cloudfront-js-1.0"
+                        },
+                        "name": "us-east-1shmulappPrismaStackSiteCloudFrontFunction219338E7"
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_cloudfront.CfnFunction",
+                      "version": "2.124.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_cloudfront.Function",
                   "version": "2.124.0"
                 }
               },
@@ -1307,6 +1509,144 @@
                     "id": "ServerFunction",
                     "path": "shmul-app-PrismaStack/Site/ServerFunction/ServerFunction",
                     "children": {
+                      "ServiceRole": {
+                        "id": "ServiceRole",
+                        "path": "shmul-app-PrismaStack/Site/ServerFunction/ServerFunction/ServiceRole",
+                        "children": {
+                          "ImportServiceRole": {
+                            "id": "ImportServiceRole",
+                            "path": "shmul-app-PrismaStack/Site/ServerFunction/ServerFunction/ServiceRole/ImportServiceRole",
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.Resource",
+                              "version": "2.124.0"
+                            }
+                          },
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "shmul-app-PrismaStack/Site/ServerFunction/ServerFunction/ServiceRole/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                              "aws:cdk:cloudformation:props": {
+                                "assumeRolePolicyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": "sts:AssumeRole",
+                                      "Effect": "Allow",
+                                      "Principal": {
+                                        "Service": "lambda.amazonaws.com"
+                                      }
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                },
+                                "managedPolicyArns": [
+                                  {
+                                    "Fn::Join": [
+                                      "",
+                                      [
+                                        "arn:",
+                                        {
+                                          "Ref": "AWS::Partition"
+                                        },
+                                        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+                                      ]
+                                    ]
+                                  }
+                                ],
+                                "tags": [
+                                  {
+                                    "key": "sst:app",
+                                    "value": "app"
+                                  },
+                                  {
+                                    "key": "sst:stage",
+                                    "value": "shmul"
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                              "version": "2.124.0"
+                            }
+                          },
+                          "DefaultPolicy": {
+                            "id": "DefaultPolicy",
+                            "path": "shmul-app-PrismaStack/Site/ServerFunction/ServerFunction/ServiceRole/DefaultPolicy",
+                            "children": {
+                              "Resource": {
+                                "id": "Resource",
+                                "path": "shmul-app-PrismaStack/Site/ServerFunction/ServerFunction/ServiceRole/DefaultPolicy/Resource",
+                                "attributes": {
+                                  "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                                  "aws:cdk:cloudformation:props": {
+                                    "policyDocument": {
+                                      "Statement": [
+                                        {
+                                          "Action": [
+                                            "s3:GetObject*",
+                                            "s3:GetBucket*",
+                                            "s3:List*",
+                                            "s3:DeleteObject*",
+                                            "s3:PutObject",
+                                            "s3:PutObjectLegalHold",
+                                            "s3:PutObjectRetention",
+                                            "s3:PutObjectTagging",
+                                            "s3:PutObjectVersionTagging",
+                                            "s3:Abort*"
+                                          ],
+                                          "Effect": "Allow",
+                                          "Resource": [
+                                            {
+                                              "Fn::GetAtt": [
+                                                "SiteS3Bucket43E5BB2F",
+                                                "Arn"
+                                              ]
+                                            },
+                                            {
+                                              "Fn::Join": [
+                                                "",
+                                                [
+                                                  {
+                                                    "Fn::GetAtt": [
+                                                      "SiteS3Bucket43E5BB2F",
+                                                      "Arn"
+                                                    ]
+                                                  },
+                                                  "/*"
+                                                ]
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ],
+                                      "Version": "2012-10-17"
+                                    },
+                                    "policyName": "SiteServerFunctionServiceRoleDefaultPolicy9429B1C1",
+                                    "roles": [
+                                      {
+                                        "Ref": "SiteServerFunctionServiceRole5E5374FA"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "constructInfo": {
+                                  "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                                  "version": "2.124.0"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_iam.Policy",
+                              "version": "2.124.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_iam.Role",
+                          "version": "2.124.0"
+                        }
+                      },
                       "Resource": {
                         "id": "Resource",
                         "path": "shmul-app-PrismaStack/Site/ServerFunction/ServerFunction/Resource",
@@ -1318,9 +1658,9 @@
                             ],
                             "code": {
                               "s3Bucket": "cdk-hnb659fds-assets-139004743199-us-east-1",
-                              "s3Key": "b57c044caf9d9112ead30d8e34bb7b41ac572ff0c6879db8c1319bad86855c2f.zip"
+                              "s3Key": "1d6af983feec83448a30fb49142df32ae92c35eee692fcf0014c9b2ae7ee897d.zip"
                             },
-                            "description": "Server handler placeholder",
+                            "description": "Server handler for SvelteKit",
                             "environment": {
                               "variables": {
                                 "VITE_APP_API_URL": {
@@ -1341,11 +1681,11 @@
                                 "SST_SSM_PREFIX": "/sst/app/shmul/"
                               }
                             },
-                            "handler": "index.handler",
+                            "handler": ".svelte-kit/svelte-kit-sst/server/lambda-handler/index.handler",
                             "memorySize": 1024,
                             "role": {
                               "Fn::GetAtt": [
-                                "SiteServerFunctionRoleED71295F",
+                                "SiteServerFunctionServiceRole5E5374FA",
                                 "Arn"
                               ]
                             },
@@ -1394,6 +1734,59 @@
                           "version": "2.124.0"
                         }
                       },
+                      "FunctionUrl": {
+                        "id": "FunctionUrl",
+                        "path": "shmul-app-PrismaStack/Site/ServerFunction/ServerFunction/FunctionUrl",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "shmul-app-PrismaStack/Site/ServerFunction/ServerFunction/FunctionUrl/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::Lambda::Url",
+                              "aws:cdk:cloudformation:props": {
+                                "authType": "NONE",
+                                "invokeMode": "BUFFERED",
+                                "targetFunctionArn": {
+                                  "Fn::GetAtt": [
+                                    "SiteServerFunction70E7C026",
+                                    "Arn"
+                                  ]
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_lambda.CfnUrl",
+                              "version": "2.124.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_lambda.FunctionUrl",
+                          "version": "2.124.0"
+                        }
+                      },
+                      "invoke-function-url": {
+                        "id": "invoke-function-url",
+                        "path": "shmul-app-PrismaStack/Site/ServerFunction/ServerFunction/invoke-function-url",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                          "aws:cdk:cloudformation:props": {
+                            "action": "lambda:InvokeFunctionUrl",
+                            "functionName": {
+                              "Fn::GetAtt": [
+                                "SiteServerFunction70E7C026",
+                                "Arn"
+                              ]
+                            },
+                            "functionUrlAuthType": "NONE",
+                            "principal": "*"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                          "version": "2.124.0"
+                        }
+                      },
                       "Code": {
                         "id": "Code",
                         "path": "shmul-app-PrismaStack/Site/ServerFunction/ServerFunction/Code",
@@ -1432,6 +1825,543 @@
                   "version": "10.3.0"
                 }
               },
+              "Asset0": {
+                "id": "Asset0",
+                "path": "shmul-app-PrismaStack/Site/Asset0",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "shmul-app-PrismaStack/Site/Asset0/Stage",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.AssetStaging",
+                      "version": "2.124.0"
+                    }
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "shmul-app-PrismaStack/Site/Asset0/AssetBucket",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                      "version": "2.124.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                  "version": "2.124.0"
+                }
+              },
+              "S3AssetUploaderPolicy": {
+                "id": "S3AssetUploaderPolicy",
+                "path": "shmul-app-PrismaStack/Site/S3AssetUploaderPolicy",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "shmul-app-PrismaStack/Site/S3AssetUploaderPolicy/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                      "aws:cdk:cloudformation:props": {
+                        "policyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "lambda:InvokeFunction",
+                              "Effect": "Allow",
+                              "Resource": {
+                                "Fn::GetAtt": [
+                                  "CustomResourceHandlerE8FB56BA",
+                                  "Arn"
+                                ]
+                              }
+                            },
+                            {
+                              "Action": [
+                                "s3:ListBucket",
+                                "s3:PutObject",
+                                "s3:DeleteObject"
+                              ],
+                              "Effect": "Allow",
+                              "Resource": [
+                                {
+                                  "Fn::GetAtt": [
+                                    "SiteS3Bucket43E5BB2F",
+                                    "Arn"
+                                  ]
+                                },
+                                {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      {
+                                        "Fn::GetAtt": [
+                                          "SiteS3Bucket43E5BB2F",
+                                          "Arn"
+                                        ]
+                                      },
+                                      "/*"
+                                    ]
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "Action": "s3:GetObject",
+                              "Effect": "Allow",
+                              "Resource": {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    "arn:",
+                                    {
+                                      "Ref": "AWS::Partition"
+                                    },
+                                    ":s3:::cdk-hnb659fds-assets-139004743199-us-east-1/*"
+                                  ]
+                                ]
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "policyName": "SiteS3AssetUploaderPolicy748FF814",
+                        "roles": [
+                          {
+                            "Ref": "CustomResourceHandlerServiceRole41AEC181"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                      "version": "2.124.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Policy",
+                  "version": "2.124.0"
+                }
+              },
+              "S3AssetUploader": {
+                "id": "S3AssetUploader",
+                "path": "shmul-app-PrismaStack/Site/S3AssetUploader",
+                "children": {
+                  "Default": {
+                    "id": "Default",
+                    "path": "shmul-app-PrismaStack/Site/S3AssetUploader/Default",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnResource",
+                      "version": "2.124.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CustomResource",
+                  "version": "2.124.0"
+                }
+              },
+              "ServerCache": {
+                "id": "ServerCache",
+                "path": "shmul-app-PrismaStack/Site/ServerCache",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "shmul-app-PrismaStack/Site/ServerCache/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::CloudFront::CachePolicy",
+                      "aws:cdk:cloudformation:props": {
+                        "cachePolicyConfig": {
+                          "name": "shmulappPrismaStackSiteServerCache99FB6702-us-east-1",
+                          "comment": "SST server response cache policy",
+                          "minTtl": 0,
+                          "maxTtl": 31536000,
+                          "defaultTtl": 0,
+                          "parametersInCacheKeyAndForwardedToOrigin": {
+                            "cookiesConfig": {
+                              "cookieBehavior": "none"
+                            },
+                            "headersConfig": {
+                              "headerBehavior": "none"
+                            },
+                            "enableAcceptEncodingGzip": true,
+                            "enableAcceptEncodingBrotli": true,
+                            "queryStringsConfig": {
+                              "queryStringBehavior": "all"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_cloudfront.CfnCachePolicy",
+                      "version": "2.124.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_cloudfront.CachePolicy",
+                  "version": "2.124.0"
+                }
+              },
+              "ServerOriginRequestPolicy": {
+                "id": "ServerOriginRequestPolicy",
+                "path": "shmul-app-PrismaStack/Site/ServerOriginRequestPolicy",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.Resource",
+                  "version": "2.124.0"
+                }
+              },
+              "CDN": {
+                "id": "CDN",
+                "path": "shmul-app-PrismaStack/Site/CDN",
+                "constructInfo": {
+                  "fqn": "constructs.Construct",
+                  "version": "10.3.0"
+                }
+              },
+              "Distribution": {
+                "id": "Distribution",
+                "path": "shmul-app-PrismaStack/Site/Distribution",
+                "children": {
+                  "Origin1": {
+                    "id": "Origin1",
+                    "path": "shmul-app-PrismaStack/Site/Distribution/Origin1",
+                    "constructInfo": {
+                      "fqn": "constructs.Construct",
+                      "version": "10.3.0"
+                    }
+                  },
+                  "Origin2": {
+                    "id": "Origin2",
+                    "path": "shmul-app-PrismaStack/Site/Distribution/Origin2",
+                    "children": {
+                      "S3Origin": {
+                        "id": "S3Origin",
+                        "path": "shmul-app-PrismaStack/Site/Distribution/Origin2/S3Origin",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "shmul-app-PrismaStack/Site/Distribution/Origin2/S3Origin/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
+                              "aws:cdk:cloudformation:props": {
+                                "cloudFrontOriginAccessIdentityConfig": {
+                                  "comment": "Identity for shmulappPrismaStackSiteDistributionOrigin239754B0C"
+                                }
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "aws-cdk-lib.aws_cloudfront.CfnCloudFrontOriginAccessIdentity",
+                              "version": "2.124.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "aws-cdk-lib.aws_cloudfront.OriginAccessIdentity",
+                          "version": "2.124.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "constructs.Construct",
+                      "version": "10.3.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "shmul-app-PrismaStack/Site/Distribution/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::CloudFront::Distribution",
+                      "aws:cdk:cloudformation:props": {
+                        "distributionConfig": {
+                          "enabled": true,
+                          "origins": [
+                            {
+                              "domainName": {
+                                "Fn::Select": [
+                                  0,
+                                  {
+                                    "Fn::Split": [
+                                      "/",
+                                      {
+                                        "Fn::Select": [
+                                          1,
+                                          {
+                                            "Fn::Split": [
+                                              "//",
+                                              {
+                                                "Fn::GetAtt": [
+                                                  "SiteServerFunctionFunctionUrlAE55D36C",
+                                                  "FunctionUrl"
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              "id": "shmulappPrismaStackSiteDistributionOrigin1B290F234",
+                              "customOriginConfig": {
+                                "originSslProtocols": [
+                                  "TLSv1.2"
+                                ],
+                                "originProtocolPolicy": "https-only",
+                                "originReadTimeout": 10
+                              }
+                            },
+                            {
+                              "domainName": {
+                                "Fn::GetAtt": [
+                                  "SiteS3Bucket43E5BB2F",
+                                  "RegionalDomainName"
+                                ]
+                              },
+                              "id": "shmulappPrismaStackSiteDistributionOrigin239754B0C",
+                              "originPath": "",
+                              "s3OriginConfig": {
+                                "originAccessIdentity": {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "origin-access-identity/cloudfront/",
+                                      {
+                                        "Ref": "SiteDistributionOrigin2S3OriginD0424A5E"
+                                      }
+                                    ]
+                                  ]
+                                }
+                              }
+                            }
+                          ],
+                          "defaultCacheBehavior": {
+                            "pathPattern": "*",
+                            "targetOriginId": "shmulappPrismaStackSiteDistributionOrigin1B290F234",
+                            "allowedMethods": [
+                              "GET",
+                              "HEAD",
+                              "OPTIONS",
+                              "PUT",
+                              "PATCH",
+                              "POST",
+                              "DELETE"
+                            ],
+                            "cachedMethods": [
+                              "GET",
+                              "HEAD",
+                              "OPTIONS"
+                            ],
+                            "cachePolicyId": {
+                              "Ref": "SiteServerCacheC3EA2799"
+                            },
+                            "compress": true,
+                            "originRequestPolicyId": "b689b0a8-53d0-40ab-baf2-68738e2966ac",
+                            "viewerProtocolPolicy": "redirect-to-https",
+                            "functionAssociations": [
+                              {
+                                "functionArn": {
+                                  "Fn::GetAtt": [
+                                    "SiteCloudFrontFunctionF6976CC7",
+                                    "FunctionARN"
+                                  ]
+                                },
+                                "eventType": "viewer-request"
+                              }
+                            ],
+                            "lambdaFunctionAssociations": []
+                          },
+                          "aliases": [],
+                          "cacheBehaviors": [
+                            {
+                              "pathPattern": "_app/*",
+                              "targetOriginId": "shmulappPrismaStackSiteDistributionOrigin239754B0C",
+                              "allowedMethods": [
+                                "GET",
+                                "HEAD",
+                                "OPTIONS"
+                              ],
+                              "cachedMethods": [
+                                "GET",
+                                "HEAD",
+                                "OPTIONS"
+                              ],
+                              "cachePolicyId": "658327ea-f89d-4fab-a63d-7e88639e58f6",
+                              "compress": true,
+                              "viewerProtocolPolicy": "redirect-to-https"
+                            },
+                            {
+                              "pathPattern": "favicon.png",
+                              "targetOriginId": "shmulappPrismaStackSiteDistributionOrigin239754B0C",
+                              "allowedMethods": [
+                                "GET",
+                                "HEAD",
+                                "OPTIONS"
+                              ],
+                              "cachedMethods": [
+                                "GET",
+                                "HEAD",
+                                "OPTIONS"
+                              ],
+                              "cachePolicyId": "658327ea-f89d-4fab-a63d-7e88639e58f6",
+                              "compress": true,
+                              "viewerProtocolPolicy": "redirect-to-https"
+                            }
+                          ],
+                          "defaultRootObject": "",
+                          "httpVersion": "http2",
+                          "ipv6Enabled": true
+                        },
+                        "tags": [
+                          {
+                            "key": "sst:app",
+                            "value": "app"
+                          },
+                          {
+                            "key": "sst:stage",
+                            "value": "shmul"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_cloudfront.CfnDistribution",
+                      "version": "2.124.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_cloudfront.Distribution",
+                  "version": "2.124.0"
+                }
+              },
+              "ServerFunctionInvalidatorPolicy": {
+                "id": "ServerFunctionInvalidatorPolicy",
+                "path": "shmul-app-PrismaStack/Site/ServerFunctionInvalidatorPolicy",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "shmul-app-PrismaStack/Site/ServerFunctionInvalidatorPolicy/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                      "aws:cdk:cloudformation:props": {
+                        "policyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "cloudfront:CreateInvalidation",
+                              "Effect": "Allow",
+                              "Resource": {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    "arn:",
+                                    {
+                                      "Ref": "AWS::Partition"
+                                    },
+                                    ":cloudfront::139004743199:distribution/",
+                                    {
+                                      "Ref": "SiteDistribution390DED28"
+                                    }
+                                  ]
+                                ]
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "policyName": "SiteServerFunctionInvalidatorPolicy2A31909D",
+                        "roles": [
+                          {
+                            "Ref": "SiteServerFunctionServiceRole5E5374FA"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                      "version": "2.124.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Policy",
+                  "version": "2.124.0"
+                }
+              },
+              "CloudFrontInvalidatorPolicy": {
+                "id": "CloudFrontInvalidatorPolicy",
+                "path": "shmul-app-PrismaStack/Site/CloudFrontInvalidatorPolicy",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "shmul-app-PrismaStack/Site/CloudFrontInvalidatorPolicy/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                      "aws:cdk:cloudformation:props": {
+                        "policyDocument": {
+                          "Statement": [
+                            {
+                              "Action": [
+                                "cloudfront:GetInvalidation",
+                                "cloudfront:CreateInvalidation"
+                              ],
+                              "Effect": "Allow",
+                              "Resource": {
+                                "Fn::Join": [
+                                  "",
+                                  [
+                                    "arn:",
+                                    {
+                                      "Ref": "AWS::Partition"
+                                    },
+                                    ":cloudfront::139004743199:distribution/",
+                                    {
+                                      "Ref": "SiteDistribution390DED28"
+                                    }
+                                  ]
+                                ]
+                              }
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "policyName": "SiteCloudFrontInvalidatorPolicy8E314A5F",
+                        "roles": [
+                          {
+                            "Ref": "CustomResourceHandlerServiceRole41AEC181"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                      "version": "2.124.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Policy",
+                  "version": "2.124.0"
+                }
+              },
+              "CloudFrontInvalidator": {
+                "id": "CloudFrontInvalidator",
+                "path": "shmul-app-PrismaStack/Site/CloudFrontInvalidator",
+                "children": {
+                  "Default": {
+                    "id": "Default",
+                    "path": "shmul-app-PrismaStack/Site/CloudFrontInvalidator/Default",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.CfnResource",
+                      "version": "2.124.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CustomResource",
+                  "version": "2.124.0"
+                }
+              },
               "Parameter_url": {
                 "id": "Parameter_url",
                 "path": "shmul-app-PrismaStack/Site/Parameter_url",
@@ -1448,7 +2378,20 @@
                           "sst:stage": "shmul"
                         },
                         "type": "String",
-                        "value": "localhost"
+                        "value": {
+                          "Fn::Join": [
+                            "",
+                            [
+                              "https://",
+                              {
+                                "Fn::GetAtt": [
+                                  "SiteDistribution390DED28",
+                                  "DomainName"
+                                ]
+                              }
+                            ]
+                          ]
+                        }
                       }
                     },
                     "constructInfo": {
@@ -1466,6 +2409,40 @@
             "constructInfo": {
               "fqn": "constructs.Construct",
               "version": "10.3.0"
+            }
+          },
+          "Custom::S3AutoDeleteObjectsCustomResourceProvider": {
+            "id": "Custom::S3AutoDeleteObjectsCustomResourceProvider",
+            "path": "shmul-app-PrismaStack/Custom::S3AutoDeleteObjectsCustomResourceProvider",
+            "children": {
+              "Staging": {
+                "id": "Staging",
+                "path": "shmul-app-PrismaStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Staging",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.AssetStaging",
+                  "version": "2.124.0"
+                }
+              },
+              "Role": {
+                "id": "Role",
+                "path": "shmul-app-PrismaStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.124.0"
+                }
+              },
+              "Handler": {
+                "id": "Handler",
+                "path": "shmul-app-PrismaStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.124.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CustomResourceProviderBase",
+              "version": "2.124.0"
             }
           },
           "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a": {
@@ -1653,11 +2630,104 @@
               "version": "2.124.0"
             }
           },
+          "SSTStackOutputSiteUrl": {
+            "id": "SSTStackOutputSiteUrl",
+            "path": "shmul-app-PrismaStack/SSTStackOutputSiteUrl",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.124.0"
+            }
+          },
           "SSTStackOutputSSTMetadata": {
             "id": "SSTStackOutputSSTMetadata",
             "path": "shmul-app-PrismaStack/SSTStackOutputSSTMetadata",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.124.0"
+            }
+          },
+          "SourcemapUploaderPolicy": {
+            "id": "SourcemapUploaderPolicy",
+            "path": "shmul-app-PrismaStack/SourcemapUploaderPolicy",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "shmul-app-PrismaStack/SourcemapUploaderPolicy/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                  "aws:cdk:cloudformation:props": {
+                    "policyDocument": {
+                      "Statement": [
+                        {
+                          "Action": [
+                            "s3:GetObject",
+                            "s3:PutObject"
+                          ],
+                          "Effect": "Allow",
+                          "Resource": [
+                            {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "arn:",
+                                  {
+                                    "Ref": "AWS::Partition"
+                                  },
+                                  ":s3:::cdk-hnb659fds-assets-139004743199-us-east-1/*"
+                                ]
+                              ]
+                            },
+                            {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "arn:",
+                                  {
+                                    "Ref": "AWS::Partition"
+                                  },
+                                  ":s3:::sstbootstrap-useast124d14e4b-1m381dvs2fa37/*"
+                                ]
+                              ]
+                            }
+                          ]
+                        }
+                      ],
+                      "Version": "2012-10-17"
+                    },
+                    "policyName": "SourcemapUploaderPolicy6476872E",
+                    "roles": [
+                      {
+                        "Ref": "CustomResourceHandlerServiceRole41AEC181"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                  "version": "2.124.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_iam.Policy",
+              "version": "2.124.0"
+            }
+          },
+          "SourcemapUploader": {
+            "id": "SourcemapUploader",
+            "path": "shmul-app-PrismaStack/SourcemapUploader",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "shmul-app-PrismaStack/SourcemapUploader/Default",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.124.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CustomResource",
               "version": "2.124.0"
             }
           },

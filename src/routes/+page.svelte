@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { signIn } from '@auth/sveltekit/client';
 	import { invalidateAll, goto } from '$app/navigation';
-	import { Auth } from 'aws-amplify';
+	import { Auth, API } from 'aws-amplify';
 	let email: any, password: any, authUser: any;
 	let code = '';
 	let verifying = false;
@@ -42,6 +42,17 @@
 		authUser = null;
 	};
 
+	const publicRequest = async () => {
+		const response = await API.get('PrismaApi', '/post', {
+			headers: {
+				Authorization: `Bearer ${(await Auth.currentSession())
+					.getAccessToken()
+					.getJwtToken()}`
+			}
+		});
+		alert(JSON.stringify(response));
+	};
+
 	getUser();
 </script>
 
@@ -53,7 +64,8 @@
 		<p>Not logged in</p>
 	{/if}
 
-	<button on:click={signOut}>Sign Out</button>
+	<button on:click={signOut}>sign out</button>
+	<button on:click={() => publicRequest()}>PrismaReq</button>
 	<a href="/signup">Don't have an account? Sign up </a>
 	<a href="/login"> Already have an account? Login </a>
 </div>
