@@ -17,37 +17,27 @@
 		loading = false;
 	};
 
-	async function handleSignup() {
-		if (verifying) {
-			try {
-				await Auth.confirmSignUp(email, code);
-				await goto('/login');
-			} catch (error) {
-				alert(error);
-			}
-		} else {
-			try {
-				await Auth.signUp({
-					username: email,
-					password
-				});
-				verifying = true;
-			} catch (error) {
-				alert(error);
-			}
-		}
-	}
 	const signOut = async () => {
 		await Auth.signOut();
 		authUser = null;
 	};
 
+	const formData = {
+		email: email,
+		name: 'testName',
+		uni: 'testUni',
+		year: 'testYear',
+		gender: 'testGender',
+		'Agree to our terms of service': 'true'
+	};
+
 	const publicRequest = async () => {
-		const response = await API.get('PrismaApi', '/post', {
+		const response = await API.post('PrismaApi', '/post', {
 			headers: {
-				Authorization: `Bearer ${(await Auth.currentSession())
-					.getAccessToken()
-					.getJwtToken()}`
+				Authorization: `Bearer ${(await Auth.currentSession()).getAccessToken().getJwtToken()}`
+			},
+			options: {
+				body: JSON.stringify(formData)
 			}
 		});
 		alert(JSON.stringify(response));

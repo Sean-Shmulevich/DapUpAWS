@@ -43,6 +43,9 @@ export function PrismaStack({ stack, app }: StackContext) {
 	}
 
 	const apiPrisma = new Api(stack, 'PrismaApi', {
+		cors: {
+			allowMethods: ["GET", "POST"],
+		},
 		authorizers: {
 			jwt: {
 				type: 'user_pool',
@@ -72,13 +75,12 @@ export function PrismaStack({ stack, app }: StackContext) {
 			}
 		},
 		routes: {
-			'GET /post': 'packages/functions/src/index.handler'
+			'POST /post': 'packages/functions/src/index.handler'
 		}
 	});
 
 	const site = new SvelteKitSite(stack, 'Site', {
 		buildCommand: 'npm run build',
-		buildOutput: 'dist',
 		environment: {
 			VITE_APP_API_URL: apiPrisma.url,
 			VITE_APP_REGION: app.region,

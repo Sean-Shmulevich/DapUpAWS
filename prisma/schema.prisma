@@ -2,38 +2,158 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 datasource db {
-  provider = "mysql"
-  url      = "mysql://root@localhost:3306/test"
+  provider  = "postgresql"
+  url       = "postgres://Sean-Shmulevich:UXgRDoeaNV96@ep-empty-sea-99486173-pooler.us-east-2.aws.neon.tech/neondb?pgbouncer=true&connect_timeout=10" // uses connection pooling
+  directUrl = "postgres://Sean-Shmulevich:UXgRDoeaNV96@ep-empty-sea-99486173.us-east-2.aws.neon.tech/neondb?connect_timeout=10"
+  // shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING") // used for migrations
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "rhel-openssl-1.0.x"]
 }
 
-model Post {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  title     String   @db.VarChar(255)
-  content   String?
-  published Boolean  @default(false)
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int
+model AuthUser {
+  id             String           @id @unique
+  email          String           @unique
+  email_verified Boolean
+  admin_verified Boolean
+  is_admin       Boolean
+  is_brand       Boolean
+  name           String?
+  profile        Profile?
+  brand_profile  BrandProfile?
+  object         object[]
+  Deal           Deal[]
+  userDealStatus UserDealStatus[]
+  // for users
+  // acceptedDeals  String[]
+  Contract       Contract[]
+
+  @@map("authuser")
+}
+
+model object {
+  id           String    @id @unique(map: "id") @default("1")
+  created      DateTime? @default(now())
+  file_name    String?
+  file_size    Int?
+  file_type    String?
+  image_number Int       @default(1) // new field
+  authUser     AuthUser  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String
+
+  @@map("object")
 }
 
 model Profile {
-  id     Int     @id @default(autoincrement())
-  bio    String?
-  user   User    @relation(fields: [userId], references: [id])
-  userId Int     @unique
+  user_id     String  @id
+  sport       String
+  college     String
+  year        String?
+  socialMedia Json?
+  venmo       String?
+  phoneNumber String?
+
+  industries String[]
+  goal       String?
+
+  gender    String?
+  hometown  String?
+  bio       String
+  auth_user AuthUser? @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("profile")
 }
 
-model User {
-  id      Int      @id @default(autoincrement())
-  email   String   @unique
-  name    String?
-  posts   Post[]
-  profile Profile?
+model Email {
+  id            String   @id @unique
+  subject       String
+  email_address String
+  date_sent     DateTime
+  content       String
+
+  @@map("email")
 }
 
+model BrandProfile {
+  user_id          String    @id
+  name             String
+  location         String
+  industry         String
+  size             String
+  goals            String
+  socialMediaLinks Json?
+  bio              String?
+  auth_user        AuthUser? @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("brand_profile")
+}
+
+model Deal {
+  id                      String       @id @unique @default(uuid())
+  title                   String
+  active                  String       @default("pending")
+  sportPreference         String
+  brandName               String
+  genderPreference        String
+  shortDescription        String
+  location                String
+  inPersonOrVirtual       String
+  eventType               String
+  eventDate               DateTime?
+  endDate                 DateTime?
+  // goals                   String[]
+  estimatedPayment        String
+  recommendedDeliverables Json
+  athleteCount            Int
+  singleOrMultiple        String
+  publishDate             DateTime?
+  authUser                AuthUser     @relation(fields: [authUserId], references: [id], onDelete: Cascade)
+  authUserId              String
+  isCampaign              Boolean
+  dealImages              DealImages[]
+
+  userDealStatus UserDealStatus[]
+
+  @@map("deal")
+}
+
+model DealImages {
+  id           String    @id @default("1")
+  created      DateTime? @default(now())
+  file_name    String?
+  file_size    Int?
+  file_type    String?
+  image_number Int       @default(1) // new field
+  authDeal     Deal      @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  dealId       String
+
+  @@map("deal_images")
+}
+
+model UserDealStatus {
+  userId     String
+  dealId     String
+  status     String    @default("pending") // can be "accepted", "rejected", or "pending"
+  user       AuthUser  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  deal       Deal      @relation(fields: [dealId], references: [id], onDelete: Cascade)
+  contract   Contract? @relation(fields: [contractId], references: [id]) // 'unique' ensures one-to-one relationship
+  contractId String?   @unique
+
+  @@id([userId, dealId])
+  @@map("user_deal_status")
+}
+
+model Contract {
+  id             String          @id @default("1")
+  created        DateTime?       @default(now())
+  file_name      String?
+  file_size      Int?
+  file_type      String?
+  authUser       AuthUser        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         String
+  UserDealStatus UserDealStatus?
+
+  @@map("contract")
+}

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Auth } from 'aws-amplify';
+	import { Auth, API } from 'aws-amplify';
 	import { invalidateAll, goto } from '$app/navigation';
 
 	let email: any, password: any, authUser: any;
@@ -27,10 +27,39 @@
 			}
 		}
 	}
+
+	const formData = {
+		email: 'fhdafjlasj@fdlsajfasld.com',
+		name: 'testName',
+		uni: 'testUni',
+		year: 'testYear',
+		gender: 'testGender',
+		'Agree to our terms of service': 'true'
+	};
+
+	const publicRequest = async () => {
+		let response = '';
+		try {
+			response = await API.post('PrismaApi', '/post', {
+				headers: {
+					Authorization: `Bearer ${(await Auth.currentSession()).getAccessToken().getJwtToken()}`,
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(formData)
+			});
+			alert(JSON.stringify(response));
+		} catch (error) {
+			//No current user.
+			alert(error);
+		}
+	};
 </script>
 
 <input type="email" placeholder="email" bind:value={email} />
 <input type="password" placeholder="password" bind:value={password} />
+<form method="POST">
+	<button type="button" on:click={() => publicRequest()}> Create Test User </button>
+</form>
 <button on:click={handleSignup}>
 	{verifying ? 'Verify' : 'Sign up'}
 </button>
