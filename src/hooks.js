@@ -14,19 +14,21 @@
 //     // response.headers.set('Authorization', `Bearer ${(await Auth.currentSession()).getAccessToken().getJwtToken()}`);
 //     return response;
 // }
-import { isAuthenticated } from '$lib/auth';
+// import { isAuthenticated } from '$lib/auth';
 
 // So in order to protect my routes I need to check the auth on the server side and redirect if not authenticated.
 // I could also do this in this file and centrralize what routes are protected are which are not.
-export async function handle({ event, resolve }) {
-    // const isAuth = await isAuthenticated();
-    // if (!isAuth) {
-    //     return new Response(null, {
-    //         status: 300,
-    //         headers: { location: '/login' }
-    //     })
-    // }
+// /** @type {import('@sveltejs/kit').HandleClientError} */
+// export async function handle({ event, resolve }) {
+//     // const isAuth = await isAuthenticated();
+//     // console.log(isAuth);
+//     // if (!isAuth) {
+//     //     return new Response({
+//     //         status: 300,
+//     //         headers: { location: '/login' }
+//     //     })
+//     // }
 
-    const response = await resolve(event);
-    return response;
-}
+//     const response = await resolve(event);
+//     return response;
+// }
