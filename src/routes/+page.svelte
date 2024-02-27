@@ -22,6 +22,7 @@
 		authUser = null;
 	};
 
+	// default values should be ''
 	const formData = {
 		email: email,
 		name: 'testName',
@@ -32,8 +33,8 @@
 		'terms-of-service': 'yes'
 	};
 
-	const publicRequest = async () => {
-		const response = await API.post('PrismaApi', '/post', {
+	const athleteSignup = async () => {
+		const response = await API.post('PrismaApi', '/athleteSignup', {
 			headers: {
 				Authorization: `Bearer ${(await Auth.currentSession()).getAccessToken().getJwtToken()}`,
 				'Content-Type': 'application/json'
@@ -48,18 +49,23 @@
 	getUser();
 </script>
 
+<!-- This Page shold be a homepage and the conditions should be used for
+conditionally rendering the user menu if the user is loggged in, but actually
+this should happen in +layout.svelte-->
+<!-- The homepage probably needs no checks as to if a user is logged in. -->
+<!-- Except if they're not then you should show the login/signup but this should maybe also be done in +layout.svelte-->
+<!-- What about hooks do I need to use them? I should probably understand them better first -->
 <div>
 	{#if authUser}
 		<p>Logged in</p>
 		<p>Welcome, {authUser.attributes.email}</p>
 	{:else}
-		<p>Not logged in</p>
+		<a href="/signup">Don't have an account? Sign up </a>
+		<a href="/login"> Already have an account? Login </a>
 	{/if}
 
 	<button on:click={signOut}>sign out</button>
-	<button on:click={() => publicRequest()}>PrismaReq</button>
-	<a href="/signup">Don't have an account? Sign up </a>
-	<a href="/login"> Already have an account? Login </a>
+	<!-- <button on:click={() => athleteSignup()}>PrismaReq</button> -->
 </div>
 <!-- <form name="login" method="POST" on:submit|preventDefault={handleSubmit}> -->
 <!-- 	<input name="email" type="email" placeholder="Email Address" /> -->

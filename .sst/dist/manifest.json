@@ -22,7 +22,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::139004743199:role/cdk-hnb659fds-deploy-role-139004743199-us-east-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::139004743199:role/cdk-hnb659fds-cfn-exec-role-139004743199-us-east-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-139004743199-us-east-1/c3e39988788598edd426a49d6fb6b414c862434d42807d870c095799cab57ccd.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-139004743199-us-east-1/50cc1986e30b2ad9fd592a4a133bce609d365330a64e53e6f26099ed721d1b80.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -143,40 +143,40 @@
             "data": "PrismaApiLogGroup834E577F"
           }
         ],
-        "/shmul-app-PrismaStack/PrismaApi/Lambda_POST_--post/ServiceRole/Resource": [
+        "/shmul-app-PrismaStack/PrismaApi/Lambda_POST_--athleteSignup/ServiceRole/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PrismaApiLambdaPOSTpostServiceRoleBBBA104F"
+            "data": "PrismaApiLambdaPOSTathleteSignupServiceRole852BF86E"
           }
         ],
-        "/shmul-app-PrismaStack/PrismaApi/Lambda_POST_--post/ServiceRole/DefaultPolicy/Resource": [
+        "/shmul-app-PrismaStack/PrismaApi/Lambda_POST_--athleteSignup/ServiceRole/DefaultPolicy/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PrismaApiLambdaPOSTpostServiceRoleDefaultPolicyC5A4183B"
+            "data": "PrismaApiLambdaPOSTathleteSignupServiceRoleDefaultPolicy05BC836F"
           }
         ],
-        "/shmul-app-PrismaStack/PrismaApi/Lambda_POST_--post/Resource": [
+        "/shmul-app-PrismaStack/PrismaApi/Lambda_POST_--athleteSignup/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PrismaApiLambdaPOSTpostD4A2C3B6"
+            "data": "PrismaApiLambdaPOSTathleteSignup7D96491F"
           }
         ],
-        "/shmul-app-PrismaStack/PrismaApi/Route_POST_--post/Integration_POST_--post/Resource": [
+        "/shmul-app-PrismaStack/PrismaApi/Route_POST_--athleteSignup/Integration_POST_--athleteSignup/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PrismaApiRoutePOSTpostIntegrationPOSTpost62A11032"
+            "data": "PrismaApiRoutePOSTathleteSignupIntegrationPOSTathleteSignup1CB502A5"
           }
         ],
-        "/shmul-app-PrismaStack/PrismaApi/Route_POST_--post/Integration_POST_--post-Permission": [
+        "/shmul-app-PrismaStack/PrismaApi/Route_POST_--athleteSignup/Integration_POST_--athleteSignup-Permission": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PrismaApiRoutePOSTpostIntegrationPOSTpostPermission4EF369A8"
+            "data": "PrismaApiRoutePOSTathleteSignupIntegrationPOSTathleteSignupPermission949D87B6"
           }
         ],
-        "/shmul-app-PrismaStack/PrismaApi/Route_POST_--post/Resource": [
+        "/shmul-app-PrismaStack/PrismaApi/Route_POST_--athleteSignup/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "PrismaApiRoutePOSTpost82BB2CF3"
+            "data": "PrismaApiRoutePOSTathleteSignup81CA715B"
           }
         ],
         "/shmul-app-PrismaStack/PrismaApi/Parameter_url/Resource": [

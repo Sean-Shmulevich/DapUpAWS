@@ -75,7 +75,7 @@ export function PrismaStack({ stack, app }: StackContext) {
 			}
 		},
 		routes: {
-			'POST /post': 'packages/functions/src/index.handler'
+			'POST /athleteSignup': 'packages/functions/src/athleteSignup.handler'
 		}
 	});
 

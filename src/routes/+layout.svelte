@@ -1,7 +1,4 @@
 <script lang="ts">
-	import { signOut } from '@auth/sveltekit/client';
-	import { page } from '$app/stores';
-
 	import { Amplify } from 'aws-amplify';
 	import awsmobile from '$lib/aws-exports';
 	Amplify.configure(awsmobile);
