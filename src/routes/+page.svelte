@@ -25,19 +25,21 @@
 	const formData = {
 		email: email,
 		name: 'testName',
-		uni: 'testUni',
+		university: 'testUni',
 		year: 'testYear',
-		gender: 'testGender',
-		'Agree to our terms of service': 'true'
+		'sport-preference': 'testSport',
+		'gender-preference': 'testGender',
+		'terms-of-service': 'yes'
 	};
 
 	const publicRequest = async () => {
 		const response = await API.post('PrismaApi', '/post', {
 			headers: {
-				Authorization: `Bearer ${(await Auth.currentSession()).getAccessToken().getJwtToken()}`
+				Authorization: `Bearer ${(await Auth.currentSession()).getAccessToken().getJwtToken()}`,
+				'Content-Type': 'application/json'
 			},
-			options: {
-				body: JSON.stringify(formData)
+			body: {
+				formData
 			}
 		});
 		alert(JSON.stringify(response));

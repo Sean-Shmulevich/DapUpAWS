@@ -45,7 +45,7 @@
 					Authorization: `Bearer ${(await Auth.currentSession()).getAccessToken().getJwtToken()}`,
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify(formData)
+				body: formData
 			});
 			alert(JSON.stringify(response));
 		} catch (error) {

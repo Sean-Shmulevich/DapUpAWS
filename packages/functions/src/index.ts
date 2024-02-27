@@ -17,34 +17,34 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
 	//     statusCode: 200,
 	//     body: JSON.stringify({ message: "Hello, World!" }),
 	// };
+	const body = await event.body;
 
-	console.log(event);
-	// const body = await JSON.parse(event.body);
-	// console.log(body);
-	// const formData = await body.formData;
-	const formData = {
-		email: "seanshmulevich@pitt.edu",
-		name: 'testName',
-		uni: 'testUni',
-		year: 'testYear',
-		gender: 'testGender',
-		'Agree to our terms of service': 'true',
-		get(key: string) {
-			return this[key];
-		}
-	};
+	const bodyJson = JSON.parse(body || '{}');
+	const formData = bodyJson["formData"];
+	// const formData = {
+	// 	email: "seanshmulevich@pitt.edu",
+	// 	name: 'testName',
+	// 	uni: 'testUni',
+	// 	year: 'testYear',
+	// 	gender: 'testGender',
+	// 	'Agree to our terms of service': 'true',
+	// 	get(key: string) {
+	// 		return this[key];
+	// 	}
+	// };
 
 	const fields: { [key: string]: string } = {
-		email: formData.get('email')?.toString().toLowerCase() ?? '',
-		name: formData.get('name')?.toString() ?? '',
+		email: formData["email"]?.toString().toLowerCase() ?? '',
+		name: formData["name"]?.toString() ?? '',
 		// 'Phone Number': formData.get('phone-number')?.toString() ?? '',
-		uni: formData.get('university')?.toString() ?? '',
-		sport: formData.get('sport-preference')?.toString() ?? '',
-		gender: formData.get('gender-preference')?.toString() ?? '',
-		'Agree to our terms of service': formData.get('terms-of-service')?.toString() ?? ''
+		uni: formData['university']?.toString() ?? '',
+		sport: formData['sport-preference']?.toString() ?? '',
+		gender: formData['gender-preference']?.toString() ?? '',
+		'Agree to our terms of service': formData['terms-of-service']?.toString() ?? ''
 		// 'Hometown': formData.get('hometown')?.toString() ?? '',
 		// 'Graduation Year': formData.get('graduation')?.toString() ?? '',
 	};
+	console.log(fields);
 
 	// Check for missing fields
 	const missingFields = new Map<string, string>();
@@ -57,6 +57,8 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
 			notMissingFields.set(key, value);
 		}
 	});
+
+	// console.log(notMissingFields);
 
 	// if (missingFields.size > 0) {
 	// 	return fail(400, {

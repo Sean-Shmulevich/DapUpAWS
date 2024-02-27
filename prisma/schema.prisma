@@ -13,6 +13,7 @@ generator client {
   binaryTargets = ["native", "rhel-openssl-1.0.x"]
 }
 
+//used to be AuthUser
 model AuthUser {
   id             String           @id @unique
   email          String           @unique
