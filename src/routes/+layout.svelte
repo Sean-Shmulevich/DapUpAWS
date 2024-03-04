@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Amplify } from 'aws-amplify';
 	import awsmobile from '$lib/aws-exports';
+	import '../app.css';
 	Amplify.configure(awsmobile);
 </script>
 

@@ -601,7 +601,7 @@
                   "aws:cdk:cloudformation:props": {
                     "content": {
                       "s3Bucket": "cdk-hnb659fds-assets-139004743199-us-east-1",
-                      "s3Key": "ab0ba4d0a74c04c372992b24d9702e51451a8dfa14d014bdeb0896a983478c85.zip"
+                      "s3Key": "e642f694f9e9fae7f1789157c4b97c42d774d7b4c1f1f5d72d2c327fe1fed475.zip"
                     }
                   }
                 },
@@ -1319,7 +1319,7 @@
                             ],
                             "code": {
                               "s3Bucket": "cdk-hnb659fds-assets-139004743199-us-east-1",
-                              "s3Key": "b57c044caf9d9112ead30d8e34bb7b41ac572ff0c6879db8c1319bad86855c2f.zip"
+                              "s3Key": "0094c0c4315b0f343aef52b52d5bfceb2a2ba2b32d7d58f8b84a481bec179b48.zip"
                             },
                             "description": "Server handler placeholder",
                             "environment": {
