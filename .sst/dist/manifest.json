@@ -22,7 +22,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::139004743199:role/cdk-hnb659fds-deploy-role-139004743199-us-east-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::139004743199:role/cdk-hnb659fds-cfn-exec-role-139004743199-us-east-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-139004743199-us-east-1/19ba560e413daa8908e0757a5d7e7d94e805fc3718d7b15821dff33df3cea3d8.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-139004743199-us-east-1/ae351ab385ed561e21151abfcc753aa83336bc9cf0dc06eca09a2bca8ca6a05c.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -185,10 +185,28 @@
             "data": "PrismaApiParameterurl4600542D"
           }
         ],
-        "/shmul-app-PrismaStack/Site/ServerFunctionRole/Resource": [
+        "/shmul-app-PrismaStack/Site/S3Bucket/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "SiteServerFunctionRoleED71295F"
+            "data": "SiteS3Bucket43E5BB2F"
+          }
+        ],
+        "/shmul-app-PrismaStack/Site/S3Bucket/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SiteS3BucketPolicy5FFCCBA0"
+          }
+        ],
+        "/shmul-app-PrismaStack/Site/S3Bucket/AutoDeleteObjectsCustomResource/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SiteS3BucketAutoDeleteObjectsCustomResource51C4527F"
+          }
+        ],
+        "/shmul-app-PrismaStack/Site/CloudFrontFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SiteCloudFrontFunctionF6976CC7"
           }
         ],
         "/shmul-app-PrismaStack/Site/ServerFunction/AssetReplacerPolicy/Resource": [
@@ -203,6 +221,18 @@
             "data": "SiteServerFunctionAssetReplacer4798FE1F"
           }
         ],
+        "/shmul-app-PrismaStack/Site/ServerFunction/ServerFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SiteServerFunctionServiceRole5E5374FA"
+          }
+        ],
+        "/shmul-app-PrismaStack/Site/ServerFunction/ServerFunction/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SiteServerFunctionServiceRoleDefaultPolicy9429B1C1"
+          }
+        ],
         "/shmul-app-PrismaStack/Site/ServerFunction/ServerFunction/Resource": [
           {
             "type": "aws:cdk:logicalId",
@@ -215,10 +245,82 @@
             "data": "SiteServerFunctionLogRetention82FC0336"
           }
         ],
+        "/shmul-app-PrismaStack/Site/ServerFunction/ServerFunction/FunctionUrl/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SiteServerFunctionFunctionUrlAE55D36C"
+          }
+        ],
+        "/shmul-app-PrismaStack/Site/ServerFunction/ServerFunction/invoke-function-url": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SiteServerFunctioninvokefunctionurl8902A688"
+          }
+        ],
+        "/shmul-app-PrismaStack/Site/S3AssetUploaderPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SiteS3AssetUploaderPolicy748FF814"
+          }
+        ],
+        "/shmul-app-PrismaStack/Site/S3AssetUploader/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SiteS3AssetUploader75B75D7F"
+          }
+        ],
+        "/shmul-app-PrismaStack/Site/ServerCache/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SiteServerCacheC3EA2799"
+          }
+        ],
+        "/shmul-app-PrismaStack/Site/Distribution/Origin2/S3Origin/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SiteDistributionOrigin2S3OriginD0424A5E"
+          }
+        ],
+        "/shmul-app-PrismaStack/Site/Distribution/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SiteDistribution390DED28"
+          }
+        ],
+        "/shmul-app-PrismaStack/Site/ServerFunctionInvalidatorPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SiteServerFunctionInvalidatorPolicy2A31909D"
+          }
+        ],
+        "/shmul-app-PrismaStack/Site/CloudFrontInvalidatorPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SiteCloudFrontInvalidatorPolicy8E314A5F"
+          }
+        ],
+        "/shmul-app-PrismaStack/Site/CloudFrontInvalidator/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SiteCloudFrontInvalidatorC49C53F3"
+          }
+        ],
         "/shmul-app-PrismaStack/Site/Parameter_url/Resource": [
           {
             "type": "aws:cdk:logicalId",
             "data": "SiteParameterurl4E8F14E2"
+          }
+        ],
+        "/shmul-app-PrismaStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Role": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomS3AutoDeleteObjectsCustomResourceProviderRole3B1BD092"
+          }
+        ],
+        "/shmul-app-PrismaStack/Custom::S3AutoDeleteObjectsCustomResourceProvider/Handler": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CustomS3AutoDeleteObjectsCustomResourceProviderHandler9D90184F"
           }
         ],
         "/shmul-app-PrismaStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/Resource": [
@@ -263,10 +365,28 @@
             "data": "UserPoolClientId"
           }
         ],
+        "/shmul-app-PrismaStack/SSTStackOutputSiteUrl": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SiteUrl"
+          }
+        ],
         "/shmul-app-PrismaStack/SSTStackOutputSSTMetadata": [
           {
             "type": "aws:cdk:logicalId",
             "data": "SSTMetadata"
+          }
+        ],
+        "/shmul-app-PrismaStack/SourcemapUploaderPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SourcemapUploaderPolicy6476872E"
+          }
+        ],
+        "/shmul-app-PrismaStack/SourcemapUploader/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SourcemapUploader"
           }
         ],
         "/shmul-app-PrismaStack/BootstrapVersion": [

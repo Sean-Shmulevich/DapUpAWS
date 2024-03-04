@@ -3,6 +3,7 @@
     "UserPoolClientId": "28pqn5uvrbq7tna8ambdtfsmvf",
     "UserPoolId": "us-east-1_ccDOU7FOm",
     "prismaApi": "https://h0gzn03z15.execute-api.us-east-1.amazonaws.com",
-    "ApiEndpoint": "https://h0gzn03z15.execute-api.us-east-1.amazonaws.com"
+    "ApiEndpoint": "https://h0gzn03z15.execute-api.us-east-1.amazonaws.com",
+    "SiteUrl": "https://d1rcjauqvaen0w.cloudfront.net"
   }
 }
